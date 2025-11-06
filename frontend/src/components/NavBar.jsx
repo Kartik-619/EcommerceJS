@@ -1,3 +1,6 @@
+//we dont need to write the index.js by default while importing
+import { navLinks } from "../constants"
+
 const NavBar = () => {
     return (
         <header>
@@ -8,15 +11,8 @@ const NavBar = () => {
 
                 {/* Navigation links list */}
                 <ul>
-                    {[
-                        // Array of navigation menu items
-                        { label: 'store' },
-                        { label: 'Mac' },
-                        { label: 'iPhone' },
-                        { label: 'Watch' },
-                        { label: 'Vision' },
-                        { label: 'Android' },
-                    ].map(({ label }) => (
+                    {/*We are importing each element of the navbar from the navLink array using map function, making the UI short and clean */}
+                    {navLinks.map(({ label }) => (
                         // Each label is mapped to a <li> element with unique key
                         <li key={label}>
                             {/* Each label links to its own section (href uses label name) */}
