@@ -5,7 +5,7 @@ const NavBar = () => {
     return (
         <header>
             {/* Navigation bar section */}
-            <nav>
+            <nav >
                 {/* Company logo (Apple logo in this case) */}
                 <img src='/logo.svg' alt="Apple Logo" />
 
