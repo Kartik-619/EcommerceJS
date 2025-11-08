@@ -3,7 +3,7 @@ import { navLinks } from "../constants"
 
 const NavBar = () => {
     return (
-        <header>
+        <header className="w-full">
             {/* Navigation bar section */}
             <nav >
                 {/* Company logo (Apple logo in this case) */}
