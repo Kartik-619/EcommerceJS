@@ -1,17 +1,16 @@
-//we dont need to write the index.js by default while importing
 import { navLinks } from "../constants"
 
 const NavBar = () => {
     return (
         <header className="w-full">
             {/* Navigation bar section */}
-            <nav >
+            <nav className="w-full px-5 2xl:px-0">
                 {/* Company logo (Apple logo in this case) */}
                 <img src='/logo.svg' alt="Apple Logo" />
 
                 {/* Navigation links list */}
                 <ul>
-                    {/*We are importing each element of the navbar from the navLink array using map function, making the UI short and clean */}
+                    {/* We are importing each element of the navbar from the navLink array using map function, making the UI short and clean */}
                     {navLinks.map(({ label }) => (
                         // Each label is mapped to a <li> element with unique key
                         <li key={label}>
