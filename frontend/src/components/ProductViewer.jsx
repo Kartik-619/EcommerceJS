@@ -33,7 +33,8 @@ const ProductViewer=()=>{
 
         </div>
         <Canvas id='canvas' camera={{position:[0,2,5], fov:50,near:0.1,far:100}}>
-            <MacbookModel14 scale={0.06} position={[-1,0,0]}/>
+            <ambientLight intensity={1}/>
+            <MacbookModel14 scale={0.06} position={[0,0,0]}/>
             <OrbitControls enableZoom={false}/>
         </Canvas>
      </section>
