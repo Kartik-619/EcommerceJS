@@ -1,8 +1,9 @@
 import { useGSAP } from "@gsap/react";
-import { useMediaQuery } from "react-responsive"
+import { useMediaQuery } from "react-responsive";
+import gsap from "gsap";
 
 const Showcase=()=>{
-    const isTablet=useMediaQuery({query:'(max-width:1024 px)'});
+    const isTablet=useMediaQuery({query:'(max-width:1024px)'});
     useGSAP(()=>{
         if(!isTablet){
             const timeline=gsap.timeline({
@@ -19,12 +20,12 @@ const Showcase=()=>{
             //in smaller devices the mask will be on top and scrolling won't be allowed
             timeline.to('.mask img',{
                 transform:'scale(1.1)'
-            }).to('content',{opacity:1,y:0,ease:'power1.in'});
+            }).to('.content',{opacity:1,y:0,ease:'power1.in'});
 
         }
     },{isTablet})
     return(
-        <section id="showacase">
+        <section id="showcase">
             <div className="media">
                 <video src="/videos/game.mp4" loop muted autoPlay playsInline/>
                 <div className="mask">
