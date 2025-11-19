@@ -64,7 +64,7 @@ const Performance = () => {
       if (pos.right !== undefined) toVars.right = `${pos.right}%`;
       if (pos.bottom !== undefined) toVars.bottom = `${pos.bottom}%`;
       // Note: likely typo here – should be `transform`, not `transfrom`
-      if (pos.transfrom !== undefined) toVars.transform = `${pos.transform}%`;
+      if (pos.transform !== undefined) toVars.transform = `${pos.transform}%`;
 
       // Animate this image into view at time 0 in the timeline
       tl.to(`.${pos.id}`, toVars, 0);
@@ -75,7 +75,7 @@ const Performance = () => {
       if (tl.scrollTrigger) tl.scrollTrigger.kill(); // Remove scroll trigger
       tl.kill(); // Kill the timeline
     };
-  });
+  },{scope:sectionRef, dependencies:[isMobile]});
 
   // Render the JSX for the Performance section
   return (
@@ -85,10 +85,10 @@ const Performance = () => {
 
       {/* Wrapper for images positioned via CSS/classes */}
       <div className="wrapper">
-        {performanceImages.map(({ id, src }) => {
+        {performanceImages.map(({ id, src }) => (
           // Render each image with dynamic class and source
-          <img key={id} src={src} alt={id} />
-        })}
+          <img key={id} className={id} src={src} alt={id} />
+        ))}
       </div>
 
       {/* Content paragraph with highlighted text */}
