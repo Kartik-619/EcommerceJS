@@ -1,6 +1,12 @@
 import { navLinks } from "../constants"
-
+import {Link} from "react-router-dom";
 const NavBar = () => {
+    const links=  [ "/store" ,
+     "/mac" ,
+     "/iPhone" ,
+     "/watch" ,
+     "/vision" ,
+     "/airPods" ]
     return (
         <header className="w-full">
             {/* Navigation bar section */}
@@ -11,12 +17,16 @@ const NavBar = () => {
                 {/* Navigation links list */}
                 <ul>
                     {/* We are importing each element of the navbar from the navLink array using map function, making the UI short and clean */}
-                    {navLinks.map(({ label }) => (
+                    {navLinks.map(({ label,path }) => (
                         // Each label is mapped to a <li> element with unique key
-                        <li key={label}>
+                       
+                            <li key={label}>
+
                             {/* Each label links to its own section (href uses label name) */}
-                            <a href={label}>{label}</a>
+                            <Link to={path}>{label}</Link>
                         </li>
+                     
+                       
                     ))}
                 </ul>
 
