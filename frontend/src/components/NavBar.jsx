@@ -1,12 +1,7 @@
 import { navLinks } from "../constants"
 import {Link} from "react-router-dom";
 const NavBar = () => {
-    const links=  [ "/store" ,
-     "/mac" ,
-     "/iPhone" ,
-     "/watch" ,
-     "/vision" ,
-     "/airPods" ]
+
     return (
         <header className="w-full">
             {/* Navigation bar section */}

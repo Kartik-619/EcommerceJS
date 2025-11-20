@@ -1,26 +1,25 @@
 import gsap from "gsap/gsap-core";
-import Hero from "./components/Hero"
 import NavBar from "./components/NavBar"
-import ProductViewer from "./components/ProductViewer"
 import {ScrollTrigger} from "gsap/all";
-import Performance from "./components/Performance";
-import Showcase from "./components/Showcase";
-import Features from "./components/Features";
-import Footer from "./components/Footer";
-import Highlights from "./components/Highlights";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Iphone from "./components/iphone/iPhone";
+import Mac from "./components/mac/Mac";
 gsap.registerPlugin(ScrollTrigger);
 const  App= ()=>{
  return(
-    <main>
-      <NavBar/>
-      <Hero/>
-      <ProductViewer/>
-      <Showcase/>
-      <Performance/>
-      <Features/>
-      <Highlights/>
-      <Footer/>
+
+    <main><BrowserRouter>
+        <NavBar/>
+        
+        <Routes>      
+          <Route path="/"  element={<Mac/>}/>
+          <Route path="/iphone"  element={<Iphone/>}/>
+    </Routes>
+  
+ </BrowserRouter>   
     </main>
+    
  )
 }
 export default App

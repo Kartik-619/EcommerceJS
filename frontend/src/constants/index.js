@@ -1,6 +1,6 @@
 const navLinks = [
+    { label: "Mac" ,path:"/"},
     { label: "Store" ,path:"/store"},
-    { label: "Mac" ,path:"/path"},
     { label: "iPhone",path:"/iphone" },
     { label: "Watch",path:"/watch" },
     { label: "Vision",path:"/vision" },

@@ -1,7 +1,7 @@
 [
     {
       "category": "iPhone",
-      "model": "iPhone 15 Pro Max",
+      "model": "iPhone 17 Pro Max",
       "image": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-max-naturaltitanium-finish?wid=2000&hei=1742&fmt=jpeg&qlt=95&.v=1693004052817",
       "price": 1199,
       "currency": "USD",
@@ -20,7 +20,7 @@
     },
     {
       "category": "iPhone",
-      "model": "iPhone 15 Pro",
+      "model": "iPhone 17 Pro",
       "image": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-naturaltitanium-finish?wid=2000&hei=1742&fmt=jpeg&qlt=95&.v=1693004052817",
       "price": 999,
       "currency": "USD",
@@ -40,7 +40,7 @@
     },
     {
       "category": "iPhone",
-      "model": "iPhone 15",
+      "model": "iPhone 17",
       "image": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pink-finish?wid=2000&hei=1742&fmt=jpeg&qlt=95&.v=1693004052817",
       "price": 799,
       "currency": "USD",
