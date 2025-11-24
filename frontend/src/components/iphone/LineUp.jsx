@@ -5,7 +5,7 @@ const dataI = [
   {
     "category": "iPhone",
     "model": "iPhone 17 Pro Max",
-    "image": "https://source.unsplash.com/random/800x1000/?smartphone,premium,titanium",
+    "image": "/iPhone-161.jpg",
     "price": 1199,
     "currency": "USD",
     "storage_options": [
@@ -24,7 +24,7 @@ const dataI = [
   {
     "category": "iPhone",
     "model": "iPhone 17 Pro",
-    "image": "https://source.unsplash.com/random/800x1000/?smartphone,luxury,closeup",
+    "image": "/iphone_17pro.jpg",
     "price": 999,
     "currency": "USD",
     "storage_options": [
@@ -44,7 +44,7 @@ const dataI = [
   {
     "category": "iPhone",
     "model": "iPhone 17",
-    "image": "https://source.unsplash.com/random/800x1000/?mobile,phone,pink",
+    "image": "/iPhone-162.jpg",
     "price": 799,
     "currency": "USD",
     "storage_options": [
@@ -63,7 +63,7 @@ const dataI = [
   {
     "category": "iPhone",
     "model": "iPhone 17 Plus",
-    "image": "https://source.unsplash.com/random/800x1000/?smartphone,large-screen,modern",
+    "image": "/iPhone-163.jpg",
     "price": 899,
     "currency": "USD",
     "storage_options": [
@@ -87,7 +87,7 @@ const LineUp = () => {
 
     <section
       id="product-viewer"
-      className="h-[80vh] w-full bg-stone-900 flex items-center justify-start relative group"
+      className="h-[80vh] w-full bg-stone-900 flex items-center justify-start relative group mb-40"
     >
       <style>{`
         .scrollbar-hide::-webkit-scrollbar {
@@ -109,7 +109,7 @@ const LineUp = () => {
               <img
                 src={item.image}
                 alt={item.model}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 onError={(e) => {
                   e.target.src = 'https://placehold.co/400x600/1a1a1a/white?text=No+Image';
                 }}
