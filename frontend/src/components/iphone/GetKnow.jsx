@@ -157,44 +157,46 @@ const GetKnow = () => {
 
   return (
     <section className="bg-black h-full w-full z-30 relative" id="feature">
-      <h1 className="text-white text-5xl m-20">
+      {/* Responsive heading */}
+      <h1 className="text-white text-3xl sm:text-4xl md:text-5xl m-8 sm:m-12 md:m-20 text-center md:text-left">
         Get to know more about the iPhone!!
       </h1>
 
+      {/* Responsive scroll container */}
       <div 
         ref={scrollContainerRef}
-        className="h-screen w-screen flex flex-row overflow-x-scroll gap-8 px-10 scrollbar-hide relative z-20"
+        className="h-screen w-screen flex flex-row overflow-x-scroll gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-10 scrollbar-hide relative z-20"
       >
         {buttonData.map((button) => (
           <button
             key={button.id}
             id={button.id}
             onClick={() => handleButtonClick(button)}
-            className={`h-[95vh] w-[28.5%] ${button.bgImage} bg-cover bg-center hover:scale-105 shadow-md rounded-xl flex flex-col items-center justify-start flex-shrink-0 relative group transition-transform duration-300 p-8 cursor-pointer`}
+            className={`h-[80vh] sm:h-[85vh] md:h-[95vh] w-[85vw] sm:w-[60vw] md:w-[28.5%] ${button.bgImage} bg-cover bg-center hover:scale-105 shadow-md rounded-xl flex flex-col items-center justify-start flex-shrink-0 relative group transition-transform duration-300 p-4 sm:p-6 md:p-8 cursor-pointer`}
           >
             {/* Overlay for better text readability */}
             <div className="absolute inset-0 bg-black/40 rounded-xl group-hover:bg-black/30 transition-all duration-300"></div>
             
             {/* Heading at the top */}
             <div className="relative z-10 text-white text-center">
-              <h3 className="text-3xl font-bold mb-4">{button.heading}</h3>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4">{button.heading}</h3>
             </div>
 
             {/* Text content in the middle */}
-            <div className="relative z-10 text-white text-center px-6 mt-auto mb-auto">
-              <p className="text-xl opacity-90">{button.text}</p>
-              <p className="text-sm mt-4 opacity-70">Click to learn more</p>
+            <div className="relative z-10 text-white text-center px-2 sm:px-4 md:px-6 mt-auto mb-auto">
+              <p className="text-base sm:text-lg md:text-xl opacity-90">{button.text}</p>
+              <p className="text-xs sm:text-sm mt-2 sm:mt-3 md:mt-4 opacity-70">Click to learn more</p>
             </div>
           </button>
         ))}
       </div>
 
-      {/* Scroll buttons component */}
+      {/* Scroll buttons component with responsive positioning */}
       <ScrollButtons 
         scrollContainerRef={scrollContainerRef} 
-        position="bottom-10 right-10"
-        buttonSize="w-14 h-14"
-        iconSize="w-7 h-7"
+        position="bottom-6 right-6 sm:bottom-8 sm:right-8 md:bottom-10 md:right-10"
+        buttonSize="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14"
+        iconSize="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7"
       />
 
       {/* Overlay Component */}
@@ -219,40 +221,40 @@ const FeatureOverlay = ({ feature, onClose }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/80 backdrop-blur-sm">
-      <div className="relative bg-stone-950 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8 bg-black/80 backdrop-blur-sm">
+      <div className="relative bg-stone-950 rounded-xl sm:rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 bg-white/20 hover:bg-white/30 text-white rounded-full w-10 h-10 flex items-center justify-center backdrop-blur-sm transition-all duration-300 hover:scale-110"
+          className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 z-10 bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center backdrop-blur-sm transition-all duration-300 hover:scale-110"
           aria-label="Close overlay"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
         {/* Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
 
-             {/* Text Content */}
-          <div className="p-8 lg:p-12">
-            <h2 className="text-4xl font-bold text-white mb-6">
+          {/* Text Content */}
+          <div className="p-4 sm:p-6 md:p-8 lg:p-12 order-2 lg:order-1">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-5 md:mb-6">
               {feature.details.title}
             </h2>
             
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 sm:mb-6 md:mb-8 leading-relaxed">
               {feature.details.description}
             </p>
 
-            <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-white mb-4">
+            <div className="mb-4 sm:mb-6 md:mb-8">
+              <h3 className="text-xl sm:text-2xl font-semibold text-white mb-3 sm:mb-4">
                 Key Features:
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {feature.details.features.map((item, index) => (
-                  <li key={index} className="flex items-start text-lg text-gray-300">
-                    <svg className="w-5 h-5 text-green-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <li key={index} className="flex items-start text-sm sm:text-base md:text-lg text-gray-300">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 mr-2 sm:mr-3 mt-0.5 sm:mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     {item}
@@ -262,23 +264,21 @@ const FeatureOverlay = ({ feature, onClose }) => {
             </div>
 
             {/* Additional Action Buttons */}
-            <div className="flex gap-4 mt-8">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors duration-300 font-semibold">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors duration-300 font-semibold text-sm sm:text-base">
                 Learn More
               </button>
-             
             </div>
           </div>
+
           {/* Image Section */}
-          <div className="h-64 lg:h-full lg:min-h-[500px]">
+          <div className="h-48 sm:h-64 md:h-72 lg:h-full lg:min-h-[500px] order-1 lg:order-2">
             <img
               src={feature.details.image}
               alt={feature.details.title}
-              className="w-full h-full object-cover rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none"
+              className="w-full h-full object-cover rounded-t-xl sm:rounded-t-2xl lg:rounded-tr-none lg:rounded-l-2xl"
             />
           </div>
-
-         
         </div>
       </div>
     </div>
