@@ -266,9 +266,7 @@ const FeatureOverlay = ({ feature, onClose }) => {
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors duration-300 font-semibold">
                 Learn More
               </button>
-              <button className="border border-gray-600 hover:border-gray-400 text-white px-6 py-3 rounded-lg transition-colors duration-300 font-semibold">
-                Compare Models
-              </button>
+             
             </div>
           </div>
           {/* Image Section */}

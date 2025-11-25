@@ -1,3 +1,4 @@
+import Essentails from "./Essentail";
 import GetKnow from "./GetKnow";
 import HeroI from "./HeroI";
 import HighlightsI from "./Highlight!";
@@ -9,6 +10,7 @@ const Iphone=()=>{
         <LineUp/>
         <HighlightsI/>
         <GetKnow/>
+        <Essentails/>
        </>
     )
 }
