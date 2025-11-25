@@ -68,7 +68,7 @@ const GetKnow = () => {
     },
     {
       id: "battery-feature",
-      bgImage: "bg-[url('https://images.unsplash.com/photo-1603791452906-9f3e1a2a6f7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')]",
+      bgImage: "bg-[url('https://images.unsplash.com/photo-1605236453806-6ff36851218e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')]",
       heading: "All-Day Battery",
       text: "Stay powered longer with efficient battery life",
       details: {
@@ -83,12 +83,12 @@ const GetKnow = () => {
           "Low Power Mode for extended use",
         ],
         image:
-          "https://images.unsplash.com/photo-1603791452906-9f3e1a2a6f7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1605236453806-6ff36851218e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       },
     },
     {
       id: "performance-feature",
-      bgImage: "bg-[url('https://images.unsplash.com/photo-1603791452906-3d3e1a2a6f7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')]",
+      bgImage: "bg-[url('https://images.unsplash.com/photo-1694202042610-f6795d3d09f5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]",
       heading: "Blazing Performance",
       text: "Powered by the latest Apple silicon",
       details: {
@@ -103,12 +103,12 @@ const GetKnow = () => {
           "Hardware-accelerated machine learning",
         ],
         image:
-          "https://images.unsplash.com/photo-1603791452906-3d3e1a2a6f7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1694202042610-f6795d3d09f5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
     },
     {
       id: "security-feature",
-      bgImage: "bg-[url('https://images.unsplash.com/photo-1603791452906-7d3e1a2a6f7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')]",
+      bgImage: "bg-[url('https://plus.unsplash.com/premium_photo-1686617826082-d4ef0e2657ba?q=80&w=2126&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]",
       heading: "Privacy & Security",
       text: "Your data stays yours",
       details: {
@@ -123,12 +123,11 @@ const GetKnow = () => {
           "Secure Enclave for sensitive data",
         ],
         image:
-          "https://images.unsplash.com/photo-1603791452906-7d3e1a2a6f7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      },
+       " https://plus.unsplash.com/premium_photo-1686617826082-d4ef0e2657ba?q=80&w=2126&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",      },
     },
     {
       id: "connectivity-feature",
-      bgImage: "bg-[url('https://images.unsplash.com/photo-1603791452906-5d3e1a2a6f7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')]",
+      bgImage: "bg-[url('https://images.unsplash.com/photo-1579567761406-4684ee0c75b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')]",
       heading: "5G Connectivity",
       text: "Ultra-fast wireless speeds wherever you go",
       details: {
@@ -143,7 +142,7 @@ const GetKnow = () => {
           "Ultra-wideband chip for spatial awareness",
         ],
         image:
-          "https://images.unsplash.com/photo-1603791452906-5d3e1a2a6f7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1579567761406-4684ee0c75b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       },
     },
   ];
@@ -221,7 +220,7 @@ const FeatureOverlay = ({ feature, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/80 backdrop-blur-sm">
-      <div className="relative bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="relative bg-stone-950 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
