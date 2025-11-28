@@ -1,7 +1,7 @@
 import gsap from "gsap/gsap-core";
 import NavBar from "./components/NavBar"
 import {ScrollTrigger} from "gsap/all";
-
+import ProductPage from "./components/storePage/ProductPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Iphone from "./components/iphone/iPhone";
 import Mac from "./components/mac/Mac";
@@ -17,6 +17,7 @@ const  App= ()=>{
           <Route path="/"  element={<Mac/>}/>
           <Route path="/iphone"  element={<Iphone/>}/>
           <Route path="/store" element={<Store/>} />
+          <Route path="/product/:id" element={<ProductPage />} />
     </Routes>
   
  </BrowserRouter>   

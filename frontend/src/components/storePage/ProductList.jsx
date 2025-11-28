@@ -9,7 +9,7 @@ const ProductList=()=>{
             <Link to={`/product/${item.id}`} key={i}  >
                 
           <div
-            key={i}
+            
             className="bg-white border border-gray-400 rounded-2xl p-8 w-full hover:shadow-xl hover:scale-105 transition-all duration-300 flex flex-col items-center justify-between h-full group"
           >
             {/* Product Image - Larger size */}
