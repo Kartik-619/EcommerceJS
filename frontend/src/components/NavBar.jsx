@@ -36,6 +36,12 @@ const NavBar = () => {
                     <button>
                         <img src="/cart.svg" alt="Cart" />
                     </button>
+                    <button>
+                        Login
+                    </button>
+                    <button>
+                        Register
+                    </button>
                 </div>
             </nav>
         </header>
