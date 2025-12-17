@@ -23,6 +23,10 @@ const Login=()=>{
     return(
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
             <form onSubmit={handleSubmit} className="bg-black border-2 border-[#00f0ff] rounded-xl p-8 shadow-[0_0_15px_#00f0ff,0_0_30px_#00f0ff] space-y-6 w-full max-w-md">
+                
+            <h2 className="text-3xl font-bold text-center text-[#00f0ff] mb-6">
+                   Login 
+                </h2>
                 <input
                 type="text"
                 placeholder="username"
