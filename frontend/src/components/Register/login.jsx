@@ -44,8 +44,12 @@ const Login=()=>{
                 onChange={UserPasswordHandler}
                 className="w-full bg-black border border-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
                 />
-                <button lassName="absolute right-4 top-3.5 text-gray-400 hover:text-gray-300">Login</button>
-            </form>
+ <button 
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-[#00f0ff] to-[#0080ff] text-black font-bold py-3 px-6 rounded-lg hover:shadow-[0_0_20px_#00f0ff] transition-all duration-300 transform hover:-translate-y-1"
+                >
+                   Login
+                </button>            </form>
         </div>
     )
 }
