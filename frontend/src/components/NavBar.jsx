@@ -1,7 +1,7 @@
 import { navLinks } from "../constants"
 import {Link} from "react-router-dom";
 const NavBar = () => {
-
+   
     return (
         <header className="w-full">
             {/* Navigation bar section */}
@@ -36,12 +36,9 @@ const NavBar = () => {
                     <button>
                         <img src="/cart.svg" alt="Cart" />
                     </button>
-                    <button>
-                        Login
-                    </button>
-                    <button>
-                        Register
-                    </button>
+                 <Link to="/login"> Login</Link> 
+                 <Link to="/register"> Register</Link> 
+                   
                 </div>
             </nav>
         </header>
