@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {useUserStore} from "./../../store/userStore";
+import useUserStore from "./../../store/userStore";
 
 //keeping password in local state is recommended
 //if we store password as a global state variable the chances of getting it leaked increases
