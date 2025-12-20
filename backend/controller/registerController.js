@@ -1,7 +1,6 @@
 const {PrismaClient}=require('@prisma/client');
 const prisma= new PrismaClient;
 const bcrypt=require('bcryptjs');
-const jwt=require('jsonwebtoken');
 
 const RegisterController=async (req,res)=>{
     const {username,email,password}=req.body;

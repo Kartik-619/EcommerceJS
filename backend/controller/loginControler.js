@@ -2,7 +2,8 @@ const {PrismaClient}=require('@prisma/client');
 const prisma= new PrismaClient;
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
-
+const jwt=require('jsonwebtoken');
+const JWT_SECRET=process.env.JWT_SECRET;
 
 const LoginController=async(req,res)=>{
     const {username,email,password}=req.body;
@@ -35,11 +36,16 @@ const LoginController=async(req,res)=>{
             success:false,
             message:'the password is invalid'
         })
-
     }
+
+    const token=jwt.sign({username:user.username,email:user.email, type:user.role},
+        JWT_SECRET,
+        {expiresIn:'1h'});
+
     return res.status(200).json({
         success:true,
         message:'Login successful',
+        token:token,
         user:{id:user.id,
             username:user.username,
             email:user.email}
