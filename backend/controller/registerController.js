@@ -1,11 +1,20 @@
 const {PrismaClient}=require('@prisma/client');
 const prisma= new PrismaClient;
-const RegisterController=async(req,res)=>{
+const bcrypt=require('bcryptjs');
+const jwt=require('jsonwebtoken');
+
+const RegisterController=async (req,res)=>{
     const {username,email,password}=req.body;
+   
+   
     if(!username || !email || !password){
-        return res.status(400).json({success:false, message:'Please enter all the fields'});
+        return res.status(400).json({
+            success:false, 
+            message:'Please enter all the fields'});
     }
 
+   
+   try{ 
     const existUser=await prisma.user.findFirst({
         where:{
             OR: [
@@ -14,16 +23,20 @@ const RegisterController=async(req,res)=>{
             ]
         }
     });
-    if(existUser){
-        return res.status(409).json({success:false,message:'User already exists'});
-    }
-   try{ 
     
+    if(existUser){
+        return res.status(409).json({
+            success:false,
+            message:'User already exists'});
+    }
+
+    const hashedPassword=await bcrypt.hash(password,10);
+
     const user=await prisma.user.create({
        data:{
             username,
             email,
-            password,
+            password:hashedPassword,
             role:'USER'}
     });
 
