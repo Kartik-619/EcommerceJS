@@ -19,9 +19,7 @@ const LoginController=async(req,res)=>{
     const user=await prisma.user.findUnique({
         where:{username}
     });
- 
-    const isMatch=await bcrypt.compare(password,user.password);
-
+    
     if(!user){
         console.log('the user is not signed up');
         return res.status.status(404).json({
@@ -29,6 +27,8 @@ const LoginController=async(req,res)=>{
             message:'user not found'
         });
     }
+ 
+    const isMatch=await bcrypt.compare(password,user.password);
 
     if(!isMatch){
         console.log('problem with password hashing');
