@@ -6,10 +6,10 @@ import axios from "axios";
 
 
 const Login=()=>{
-    const { userName, email, setUserName, setEmail } = useUserStore();
+    const { userName, email, setuserName, setEmail } = useUserStore();
     const [password,setPassword]=useState('');
     const UserNameHandler=(e)=>{
-        setUserName(e.target.value);
+        setuserName(e.target.value);
     }
     const UserEmailHandler=(e)=>{
         setEmail(e.target.value);
@@ -17,8 +17,20 @@ const Login=()=>{
     const UserPasswordHandler=(e)=>{
         setPassword(e.target.value)
     }
-    const handleSubmit=()=>{
+    const handleSubmit= async (e)=>{
+        e.preventDefault();
+        try{
+            const response=await axios.post('http://localhost:3007/login',{
+                username:userName,
+                email:email,
+                password:password
+            });      
+            alert('Login Successfull!!!');    
+            console.log("user logined",response.data);
 
+        }catch(err){
+            console.log(err)
+        }
     }
     return(
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
