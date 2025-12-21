@@ -1,8 +1,9 @@
 import { useState } from "react";
+import axios from "axios";
+
 
 const Register = () => {
-    // ✅ FIXED: useState returns an array, not an object
-    const [username, setUsername] = useState('');
+    const [usernamee, setUsername] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState(''); // Added for confirmation
@@ -23,12 +24,25 @@ const Register = () => {
         setConfirmPassword(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
         e.preventDefault();
-        // Add your registration logic here
-        console.log({ username, userEmail, password, confirmPassword });
-    };
-
+        if(password!=confirmPassword){
+            alert('The password does not match in both fields');
+            return;
+        }
+        try{
+            const response= await axios.post('http://localhost:3007/register',{
+                username:usernamee,
+                email:userEmail,
+                password:password
+            },
+        );  res.json({message:"Uuser registered!"});
+            console.log("user registered",response.data);
+        }catch(err){
+            console.log('registeration error',err);
+           
+        }
+    }
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
             <form 
@@ -42,7 +56,7 @@ const Register = () => {
                 <input
                     type="text"
                     placeholder="Username"
-                    value={username}
+                    value={usernamee}
                     onChange={UserNameHandler}
                     className="w-full bg-black border border-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
                 />

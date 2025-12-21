@@ -10,11 +10,14 @@
     "test": "npm run test"
   },
   "dependencies": {
-    "@prisma/client": "^7.1.0",
+    "@prisma/client": "^6.19.1",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "prisma": "^7.1.0"
+    "prisma": "^6.19.1"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.3"
   }
 }

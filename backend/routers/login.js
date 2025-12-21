@@ -1,6 +1,6 @@
 const express=require('express');
 const router=express.Router();
-const {login}=require('../controller/loginControler');
+const login=require('../controller/loginControler');
 
-router.post('/api',login);
+router.post('/',login);
 module.exports=router;

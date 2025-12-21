@@ -1,5 +1,5 @@
 const {PrismaClient}=require('@prisma/client');
-const prisma= new PrismaClient;
+const prisma= new PrismaClient({});
 const bcrypt=require('bcryptjs');
 
 const RegisterController=async (req,res)=>{
@@ -47,10 +47,11 @@ const RegisterController=async (req,res)=>{
             email:user.email}
     })
     }catch(err){
+        console.log(err)
         return res.status(500).json({
             success:false,
             message:'Internal Server Error'
         })
     }
 }
-module.export=RegisterController;
+module.exports=RegisterController;
