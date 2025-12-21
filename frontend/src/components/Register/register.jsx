@@ -36,7 +36,7 @@ const Register = () => {
                 email:userEmail,
                 password:password
             },
-        );  res.json({message:"Uuser registered!"});
+        );  
             console.log("user registered",response.data);
         }catch(err){
             console.log('registeration error',err);

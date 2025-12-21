@@ -14,5 +14,5 @@ app.use('/login',login);
 app.use('/register',register);
 
 app.listen(PORT,()=>{
-    console.log('the server is running');
+    console.log('the server is running',PORT);
 })
