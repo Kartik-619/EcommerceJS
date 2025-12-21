@@ -1,11 +1,13 @@
 import { useState } from "react";
 import useUserStore from "./../../store/userStore";
 import axios from "axios";
+import { useNavigate} from 'react-router-dom';
 //keeping password in local state is recommended
 //if we store password as a global state variable the chances of getting it leaked increases
 
 
 const Login=()=>{
+    const [LoggedIn,setLogin]=useState(false);
     const { userName, email, setuserName, setEmail } = useUserStore();
     const [password,setPassword]=useState('');
     const UserNameHandler=(e)=>{
@@ -17,6 +19,8 @@ const Login=()=>{
     const UserPasswordHandler=(e)=>{
         setPassword(e.target.value)
     }
+
+    const navigate = useNavigate(); 
     const handleSubmit= async (e)=>{
         e.preventDefault();
         try{
@@ -24,14 +28,22 @@ const Login=()=>{
                 username:userName,
                 email:email,
                 password:password
-            });      
+            });  
+            
             alert('Login Successfull!!!');    
             console.log("user logined",response.data);
+            setLogin(true);
+            navigate('/store');  
 
         }catch(err){
-            console.log(err)
+            console.log(err);
+            alert('Login Failled !!!');    
+
         }
+
+       
     }
+    
     return(
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
             <form onSubmit={handleSubmit} className="bg-black border-2 border-[#00f0ff] rounded-xl p-8 shadow-[0_0_15px_#00f0ff,0_0_30px_#00f0ff] space-y-6 w-full max-w-md">
