@@ -6,10 +6,10 @@ import axios from "axios";
 
 
 const Login=()=>{
-    const { userName, email, setUsername, setEmail } = useUserStore();
+    const { userName, email, setUserName, setEmail } = useUserStore();
     const [password,setPassword]=useState('');
     const UserNameHandler=(e)=>{
-        setUsername(e.target.value);
+        setUserName(e.target.value);
     }
     const UserEmailHandler=(e)=>{
         setEmail(e.target.value);
