@@ -19,5 +19,10 @@
   },
   "devDependencies": {
     "dotenv": "^17.2.3"
-  }
+  },
+    "prisma": {
+      "seed": "node prisma/seed.js"
+    }
+  
+  
 }
