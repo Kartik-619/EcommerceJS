@@ -443,7 +443,137 @@ const iphone17Pro = await prisma.product.create({
   });
 
   console.log("✅ AirPods Max (2nd generation) seeded");
+  const HomePod = await prisma.product.create({
+    data: {
+       
+    slug: "homepod-mini-2nd-gen",
+    category: "Accessories",
+    model: "HomePod mini (2nd generation)",
+   
+    basePrice: 99,
+    currency: "USD",
+      releaseDate: new Date("2023-09-22"),
+      createdAt: new Date()
+    }
+  });
+  await prisma.productImage.create({
+    data: {
+      url: "https://images.unsplash.com/photo-1659943063471-2fcc8b45edd2?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0",
+  
+      order: 1,
+      productId: HomePod.id
+    }
+  });
 
+  await prisma.productVariant.createMany({
+    data: [
+      { label: "Space Gray", price: 149, productId: HomePod.id },
+      { label: "Silver", price: 99, productId:  HomePod.id },
+      { label: "Sky Blue", price: 99, productId:  HomePod.id },
+      { label: "Pink", price: 109, productId:  HomePod.id },
+      { label: "Green", price: 99, productId:  HomePod.id}
+    ]
+  });
+  await prisma.productSpec.createMany({
+    data: [
+      { key: "features", value:   "Siri integration, Intercom,Temperature & humidity sensors,Thread support", productId: HomePod.id },
+      { key: "battery", value: "Up to 20 hours listening time", productId: HomePod.id},
+      { key: "audio", value: "High-excursion woofer, dual passive radiators", productId: HomePod.id},
+      { key: "driver_technology", value: "Custom dynamic driver", productId: HomePod.id },
+      { key: "microphones", value: "Eight microphones for ANC and voice pickup", productId: HomePod.id },
+
+    
+      { key: "weight", value: "384.8 grams", productId: HomePod.id },
+      { key: "case_included", value: "Smart Case for ultra low power mode",productId: HomePod.id},
+      
+    ]
+  });
+  const iMacM3 = await prisma.product.create({
+    data: {
+     
+      slug: "imac-24-inch-m3",
+      category: "Mac",
+      model: "iMac 24-inch (M3)",
+      basePrice: 1299,
+      currency: "USD",
+      releaseDate: new Date("2024-04-30"),
+      createdAt: new Date()
+    }
+  });
+  
+  await prisma.productImage.create({
+    data: {
+      url: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      
+      order: 1,
+      productId: iMacM3.id
+    }
+  });
+  
+  await prisma.productVariant.createMany({
+    data: [
+      { label: "256GB", price: 1299, productId: iMacM3.id },
+      { label: "512GB", price: 1499, productId: iMacM3.id },
+      { label: "1TB", price: 1899, productId: iMacM3.id },
+      { label: "2TB", price: 2299, productId: iMacM3.id }
+    ]
+  });
+  
+  await prisma.productSpec.createMany({
+    data: [
+      { key: "colors", value: "Blue, Green, Pink, Silver, Yellow, Orange, Purple", productId: iMacM3.id },
+      { key: "display", value: "24-inch 4.5K Retina display", productId: iMacM3.id },
+      { key: "chip", value: "Apple M3 chip", productId: iMacM3.id },
+      { key: "memory", value: "8GB unified memory (configurable to 16GB or 24GB)", productId: iMacM3.id },
+      { key: "ports", value: "2 x Thunderbolt 4, 2 x USB-C, Gigabit Ethernet, 3.5mm headphone jack", productId: iMacM3.id },
+      { key: "camera", value: "1080p FaceTime HD camera", productId: iMacM3.id },
+      { key: "audio", value: "Six-speaker system with force-cancelling woofers", productId: iMacM3.id },
+      { key: "microphones", value: "Studio-quality three-microphone array", productId: iMacM3.id },
+      { key: "accessories", value: "Magic Keyboard with Touch ID, Magic Mouse", productId: iMacM3.id }
+    ]
+  });
+  const AppleTV4K = await prisma.product.create({
+    data: {
+    
+      slug: "apple-tv-4k-2024",
+      category: "Accessories",
+      model: "Apple TV 4K (2024)",
+      basePrice:129,
+      currency: "USD",
+      releaseDate: new Date("2024-05-20"),
+      createdAt: new Date()
+    }
+  });
+  
+  await prisma.productImage.create({
+    data: {
+      url: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+   
+      order: 1,
+      productId: AppleTV4K.id
+    }
+  });
+  
+  await prisma.productVariant.createMany({
+    data: [
+      { label: "64GB", price: 129, productId: AppleTV4K.id },
+      { label: "128GB", price: 149, productId: AppleTV4K.id }
+    ]
+  });
+  
+  await prisma.productSpec.createMany({
+    data: [
+      { key: "chip", value: "Apple A15 Bionic chip", productId: AppleTV4K.id },
+      { key: "video_support", value: "4K Dolby Vision, HDR10+, HLG", productId: AppleTV4K.id },
+      { key: "audio_support", value: "Dolby Atmos, Spatial Audio", productId: AppleTV4K.id },
+      { key: "features", value: "Siri Remote, Thread support, HomeKit hub", productId: AppleTV4K.id },
+      { key: "connectivity", value: "Wi-Fi 6, Bluetooth 5.0, Gigabit Ethernet, HDMI 2.1", productId: AppleTV4K.id },
+      { key: "content_services", value: "Apple TV+, Netflix, Disney+, Prime Video compatible", productId: AppleTV4K.id },
+      { key: "gaming", value: "Apple Arcade compatible with game controllers", productId: AppleTV4K.id },
+      { key: "smart_home", value: "HomeKit secure video support", productId: AppleTV4K.id }
+    ]
+  });
+  
 }
 
 main()
