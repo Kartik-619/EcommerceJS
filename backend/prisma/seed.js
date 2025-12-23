@@ -272,30 +272,31 @@ const iphone17Pro = await prisma.product.create({
 
   await prisma.productVariant.createMany({
     data: [
-        { label: "64GB", price: 499 },
-        { label: "128GB", price: 549 },
-        { label: "256GB", price: 649 }
+      { label: "64GB", price: 499, productId: iphone17SE.id },
+      { label: "128GB", price: 549, productId: iphone17SE.id },
+      { label: "256GB", price: 649, productId: iphone17SE.id }
     ],
-   
   });
+  
   await prisma.productSpec.createMany({
-    data:  [
-        { key: "display", value: "6.1-inch Retina HD display" },
-        { key: "chip", value: "A15 Bionic chip" },
-        { key: "camera", value: "12MP dual-camera system with Night mode" },
-        { key: "battery", value: "Up to 15 hours video playback" },
-        { key: "os", value: "iOS 17" },
-        { key: "color", value: "Product Red, Midnight, Starlight, Blue" },
-        { key: "connectivity", value: "5G, Wi-Fi 6, Bluetooth 5.0" },
-        { key: "touch_id", value: "Touch ID in home button" },
-        { key: "water_resistance", value: "IP67 (1 meter for 30 minutes)" },
-        { key: "mag_safe", value: "Compatible with MagSafe accessories" }
-      ]
+    data: [
+      { key: "display", value: "6.1-inch Retina HD display", productId: iphone17SE.id },
+      { key: "chip", value: "A15 Bionic chip", productId: iphone17SE.id },
+      { key: "camera", value: "12MP dual-camera system with Night mode", productId: iphone17SE.id },
+      { key: "battery", value: "Up to 15 hours video playback", productId: iphone17SE.id },
+      { key: "os", value: "iOS 17", productId: iphone17SE.id },
+      { key: "color", value: "Product Red, Midnight, Starlight, Blue", productId: iphone17SE.id },
+      { key: "connectivity", value: "5G, Wi-Fi 6, Bluetooth 5.0", productId: iphone17SE.id },
+      { key: "touch_id", value: "Touch ID in home button", productId: iphone17SE.id },
+      { key: "water_resistance", value: "IP67 (1 meter for 30 minutes)", productId: iphone17SE.id },
+      { key: "mag_safe", value: "Compatible with MagSafe accessories", productId: iphone17SE.id }
+    ]
   });
+  
 
   const ipadPro = await prisma.product.create({
     data: {
-      slug: "ipad-pro-13-m2-1",
+      slug: "ipad-pro-13-m2-12",
       category: "iPad",
       model: "iPad Pro 13-inch (M2)",
       basePrice: 799,
@@ -348,7 +349,7 @@ const iphone17Pro = await prisma.product.create({
   // 5️⃣ FIFTH PRODUCT — Apple Watch Ultra 2
   const appleWatch = await prisma.product.create({
     data: {
-      slug: "apple-watch-ultra-2-1",
+      slug: "apple-watch-ultra-2-1a",
       category: "Wearables",
       model: "Apple Watch Ultra 2",
       basePrice: 799,
