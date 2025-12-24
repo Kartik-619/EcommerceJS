@@ -1,9 +1,21 @@
 import { useParams } from 'react-router-dom';
 import products from '../../constants/data';
-
+import { useEffect, useState } from 'react';
+import axios from "axios";
 const ProductPage = () => {
   const { id } = useParams();
-  const product = products.find(item => item.id === id);
+  const [product, setProducts] = useState(null);
+  useEffect(() => {
+    const FetchSingle = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3007/api/products/${id}`);
+        setProducts(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    FetchSingle();
+  }, [id]);
 
   if (!product) {
     return (
@@ -36,7 +48,7 @@ const ProductPage = () => {
             {/* Product Image */}
             <div className="flex items-center justify-center p-4">
               <img
-                src={product.image}
+                src={product.images[0]?.url}
                 alt={product.model}
                 className="w-full max-w-md object-cover rounded-lg"
               />
@@ -48,7 +60,7 @@ const ProductPage = () => {
               <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide mb-2">
                 {product.category}
               </span>
-              
+
               {/* Model Name */}
               <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                 {product.model}
@@ -57,7 +69,7 @@ const ProductPage = () => {
               {/* Price */}
               <div className="mb-6">
                 <p className="text-4xl font-bold text-gray-900">
-                  {product.currency}{product.price}
+                  {product.currency}{product.basePrice}
                 </p>
                 <p className="text-green-600 text-sm mt-1">In stock • Free shipping</p>
               </div>
@@ -73,19 +85,13 @@ const ProductPage = () => {
               {/* Key Features */}
               <div className="mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">Key Features</h3>
-                <ul className="text-gray-600 space-y-2">
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                    Latest generation technology
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                    Premium build quality
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                    Apple ecosystem integration
-                  </li>
+                <h3 className="mt-6 font-semibold">Specifications</h3>
+                <ul>
+                  {product.specs.map(spec => (
+                    <li key={spec.id}>
+                      <strong>{spec.key}:</strong> {spec.value}
+                    </li>
+                  ))}
                 </ul>
               </div>
 
