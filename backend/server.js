@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use('/login',login);
 app.use('/register',register);
+app.use('/api/products',require('./routers/Product'));
 
 app.listen(PORT,()=>{
     console.log('the server is running',PORT);
