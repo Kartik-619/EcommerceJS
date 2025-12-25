@@ -1,7 +1,10 @@
 import { navLinks } from "../constants"
-import {Link} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 const NavBar = () => {
-   
+   const navigate=useNavigate();
+   const MoveToCart=()=>{
+    navigate("/cart");
+   }
     return (
         <header className="w-full">
             {/* Navigation bar section */}
@@ -28,12 +31,12 @@ const NavBar = () => {
                 {/* Right-side icons for search and cart */}
                 <div className="flex-center gap-3">
                     {/* Search button with icon */}
-                    <button>
+                    <button >
                         <img src="/search.svg" alt="Search" />
                     </button>
 
                     {/* Cart button with icon */}
-                    <button>
+                    <button onClick={MoveToCart}>
                         <img src="/cart.svg" alt="Cart" />
                     </button>
                  <Link to="/login"> Login</Link> 

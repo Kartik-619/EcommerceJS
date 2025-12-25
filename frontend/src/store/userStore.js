@@ -1,15 +1,19 @@
-import {create} from 'zustand'; // ✅ Importing the 'create' function from Zustand to define a global state store
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-
-const useUserStore=create((set)=>({ // 'set' is a function provided by Zustand to update the state
-
-    userName:'', //
-    setuserName: (value)=>set({userName:value}), 
-    email:'',
-    setEmail:(val)=>set({email:val}),
-   
-     
-
-})); // ✅ Zustand wraps this object and returns a custom hook that can be used in components
+const useUserStore = create(
+  persist(
+    (set) => ({
+      userName: '', // Matches the key in your Cart
+      email: '',
+      setuserName: (name) => set({ userName: name }), // Ensure this sets 'userName'
+      setEmail: (email) => set({ email: email }),
+      logout: () => set({ userName: '', email: '' }),
+    }),
+    {
+      name: 'user-storage', 
+    }
+  )
+);
 
 export default useUserStore;

@@ -7,6 +7,8 @@ import { useNavigate} from 'react-router-dom';
 
 
 const Login=()=>{
+    const [inputUserName, setInputUserName] = useState('');
+    const [inputEmail, setInputEmail] = useState('');
     const [LoggedIn,setLogin]=useState(false);
     const { userName, email, setuserName, setEmail } = useUserStore();
     const [password,setPassword]=useState('');
@@ -21,27 +23,31 @@ const Login=()=>{
     }
 
     const navigate = useNavigate(); 
-    const handleSubmit= async (e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        try{
-            const response=await axios.post('http://localhost:3007/login',{
-                username:userName,
-                email:email,
-                password:password
+        try {
+            const response = await axios.post('http://localhost:3007/login', {
+                // FIX: Use inputUserName and inputEmail instead of userName and email
+                username: inputUserName, 
+                email: inputEmail,
+                password: password
             });  
             
-            alert('Login Successfull!!!');    
-            console.log("user logined",response.data);
+            const { user } = response.data;
+    
+            // Update global state with data returned from backend
+            setuserName(user.username);
+            setEmail(user.email);
+            console.log(user.username);
+            console.log(user.email);
+            alert('Login Successful!!!');    
             setLogin(true);
             navigate('/store');  
-
-        }catch(err){
+    
+        } catch(err) {
             console.log(err);
-            alert('Login Failled !!!');    
-
+            alert('Login Failed !!!');    
         }
-
-       
     }
     
     return(
@@ -54,15 +60,15 @@ const Login=()=>{
                 <input
                 type="text"
                 placeholder="username"
-                value={userName}
-                onChange={UserNameHandler}
+                value={inputUserName}
+                onChange={(e)=>setInputUserName(e.target.value)}
                 className="w-full bg-black border border-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
                 />
                  <input
                 type="email"
                 placeholder="email"
-                value={email}
-                onChange={UserEmailHandler}
+                value={inputEmail}
+                onChange={(e)=>setInputEmail(e.target.value)}
                 className="w-full bg-black border border-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
                 />
                 <input

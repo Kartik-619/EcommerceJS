@@ -8,13 +8,16 @@ import Mac from "./components/mac/Mac";
 import Store from "./components/storePage/Store";
 import Login from "./components/Register/login"
 import Register from "./components/Register/register";
+import Cart from "./components/cart/cart";
+
+
 gsap.registerPlugin(ScrollTrigger);
 const  App= ()=>{
  return(
 
-    <main><BrowserRouter>
+    <BrowserRouter>
         <NavBar/>
-        
+        <main className="pt-15">
         <Routes>      
           <Route path="/"  element={<Mac/>}/>
           <Route path="/iphone"  element={<Iphone/>}/>
@@ -22,10 +25,11 @@ const  App= ()=>{
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
+          <Route path="/cart" element={<Cart/>} />
     </Routes>
-  
- </BrowserRouter>   
     </main>
+ </BrowserRouter>   
+    
     
  )
 }
