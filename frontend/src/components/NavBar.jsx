@@ -6,9 +6,9 @@ const NavBar = () => {
     navigate("/cart");
    }
     return (
-        <header className="w-full">
+        <header className="w-full sticky top-0 z-50">
             {/* Navigation bar section */}
-            <nav className="w-full px-5 2xl:px-0">
+            <nav className="w-full sticky top-0 z-50 px-5 2xl:px-0">
                 {/* Company logo (Apple logo in this case) */}
                 <img src='/logo.svg' alt="Apple Logo" />
 
