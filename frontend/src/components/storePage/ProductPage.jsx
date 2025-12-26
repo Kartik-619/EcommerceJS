@@ -2,14 +2,17 @@ import { useParams } from 'react-router-dom';
 import products from '../../constants/data';
 import { useEffect, useState } from 'react';
 import axios from "axios";
+import useUserStore from '../../store/userStore'
 const ProductPage = () => {
   const { id } = useParams();
   const [product, setProducts] = useState(null);
+  const {cart,setCart}=useUserStore();
   useEffect(() => {
     const FetchSingle = async () => {
       try {
         const response = await axios.get(`http://localhost:3007/api/products/${id}`);
         setProducts(response.data);
+        console.log(response.data)
       } catch (err) {
         console.log(err);
       }
@@ -27,6 +30,15 @@ const ProductPage = () => {
       </div>
     );
   }
+
+
+  const AddToCart=()=>{
+    try{setCart((e)=>cart.push(product.id));
+    console.log(product.id);
+  }catch(e){
+    console.log("the error in adding to cart is :",e);
+  }
+}
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -100,7 +112,9 @@ const ProductPage = () => {
                 <button className="flex-1 bg-blue-600 text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl">
                   Buy Now
                 </button>
-                <button className="flex-1 border-2 border-gray-300 text-gray-700 py-4 px-8 rounded-full text-lg font-semibold hover:border-gray-400 transition-colors duration-200">
+
+
+                <button onClick={AddToCart} className="flex-1 border-2 border-gray-300 text-gray-700 py-4 px-8 rounded-full text-lg font-semibold hover:border-gray-400 transition-colors duration-200">
                   Add to Cart
                 </button>
               </div>

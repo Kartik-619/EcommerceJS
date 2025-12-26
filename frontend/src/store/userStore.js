@@ -6,9 +6,11 @@ const useUserStore = create(
     (set) => ({
       userName: '', // Matches the key in your Cart
       email: '',
+      cart:[],
       setuserName: (name) => set({ userName: name }), // Ensure this sets 'userName'
       setEmail: (email) => set({ email: email }),
       logout: () => set({ userName: '', email: '' }),
+      setCart:()=>set({cart:[]})
     }),
     {
       name: 'user-storage', 
