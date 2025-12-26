@@ -10,7 +10,18 @@ const useUserStore = create(
       setuserName: (name) => set({ userName: name }), // Ensure this sets 'userName'
       setEmail: (email) => set({ email: email }),
       logout: () => set({ userName: '', email: '' }),
-      setCart:()=>set({cart:[]})
+      addToCart: (productId) =>
+        set((state) => ({
+          cart: [...state.cart, productId],
+        })),
+    
+      removeFromCart: (productId) =>
+        set((state) => ({
+          cart: state.cart.filter((id) => id !== productId),
+        })),
+    
+      clearCart: () => set({ cart: [] }),
+    
     }),
     {
       name: 'user-storage', 

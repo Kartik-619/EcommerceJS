@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import products from '../../constants/data';
 import { useEffect, useState } from 'react';
 import axios from "axios";
@@ -6,7 +6,9 @@ import useUserStore from '../../store/userStore'
 const ProductPage = () => {
   const { id } = useParams();
   const [product, setProducts] = useState(null);
-  const {cart,setCart}=useUserStore();
+  const {cart,addToCart}=useUserStore();
+  const navigate=useNavigate();
+
   useEffect(() => {
     const FetchSingle = async () => {
       try {
@@ -33,8 +35,10 @@ const ProductPage = () => {
 
 
   const AddToCart=()=>{
-    try{setCart((e)=>cart.push(product.id));
+    try{
+      addToCart([...cart,product.id]);
     console.log(product.id);
+    navigate("/cart");
   }catch(e){
     console.log("the error in adding to cart is :",e);
   }

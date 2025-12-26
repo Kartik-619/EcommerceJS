@@ -1,22 +1,33 @@
+import { useState,useEffect } from "react";
 import useUserStore from "./../../store/userStore";
 import axios from "axios";
 // ... imports
 
 const Cart = () => {
   const { userName, cart, setCart } = useUserStore();
+  const [cartItem,setCartItem]=useState([]);
   useEffect(()=>{
     const fetchProduct=async()=>{
       try{
-        const response= await axios.get('http://localhost:3007/api/products');
-       
-        setProducts(response.data);
+        console.log("Cart from Zustand:", cart);
+
+        //re-rendering only after all of the items in the cart[] are fetched...using Promise.all
+        const response =await Promise.all(  
+          cart.map( (id)=>
+           axios.get(`http://localhost:3007/api/products/${id}`)
+          
+        ));
+        const products = response.map((res) => res.data);
+        console.log(products)
+        setCartItem(products);
+        
         }catch(err){
           console.log(err);
         }
     }
     fetchProduct();}
   
- ,[] )
+ ,[cart] )
   return (
 
     <div className="min-h-screen w-full bg-black text-white pt-24">
@@ -44,17 +55,16 @@ const Cart = () => {
                     Continue shopping
                   </a></>) : (<div className="space-y-6">
                     {
-                      cart.map((item) => (
+                      cartItem.map((item) => (
                         <div
                           key={item.id}
                           className="flex justify-between items-center p-6 border border-zinc-800 rounded-2xl bg-zinc-900/40"
                         >
                           <div>
-                            <p className="text-lg font-medium">{item.name}</p>
-                            <p className="text-sm text-zinc-400">Qty: {item.quantity}</p>
+                            <p className="text-lg font-medium">{item.model}</p>
                           </div>
 
-                          <p className="font-semibold">₹{item.price}</p>
+                          <p className="font-semibold">₹{item.basePrice}</p>
                         </div>
                       ))
                     }
