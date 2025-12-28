@@ -12,7 +12,7 @@ const useUserStore = create(
       setEmail: (email) => set({ email }),
       logout: () => set({ userName: '', email: '', cart: [] }),
 
-      // ✅ ADD TO CART
+      //  ADD TO CART
       addToCart: (productId) =>
         set((state) => {
           const item = state.cart.find(
@@ -23,9 +23,10 @@ const useUserStore = create(
           if (item) {
             return {
               cart: state.cart.map((i) =>
+                //if product already exists, increment its quantity
                 i.productId === productId
                   ? { ...i, quantity: i.quantity + 1 }
-                  : i
+                  : i //else just add it into the cart array
               ),
             };
           }
@@ -36,7 +37,7 @@ const useUserStore = create(
           };
         }),
 
-      // ✅ REMOVE FROM CART
+      //  REMOVE FROM CART
       removeFromCart: (productId) =>
         set((state) => {
           const item = state.cart.find(
