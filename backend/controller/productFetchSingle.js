@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const ProductSingle=async (req,res)=>{
-    const {id}=Number(req.params.id);
+    const id=Number(req.params.id);
     try{
         const product=await prisma.product.findUnique({
             where:{id:Number(id)},
