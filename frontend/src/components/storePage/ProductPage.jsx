@@ -36,7 +36,7 @@ const ProductPage = () => {
 
   const AddToCart=()=>{
     try{
-      addToCart([...cart,product.id]);
+      addToCart(product.id);
     console.log(product.id);
     navigate("/cart");
   }catch(e){
