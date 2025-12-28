@@ -5,6 +5,7 @@ import axios from "axios";
 const Cart = () => {
   const { userName, cart } = useUserStore();
   const [cartItems, setCartItems] = useState([]);
+  const [totalPrice,setTotalPrice]=useState('');
 
   useEffect(() => {
     if (!cart || cart.length === 0) {
@@ -57,18 +58,30 @@ const Cart = () => {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="flex justify-between items-center p-6 border border-zinc-800 rounded-2xl bg-zinc-900/40"
+                className="flex justify-between size-100 items-center p-6 border border-zinc-800 rounded-2xl bg-zinc-900/40"
               >
-                <div>
-                  <p className="text-lg font-medium">{item.model}</p>
-                  <p className="text-sm text-zinc-400">
+                
+                <div className="flex-col items-center justify-center p-4">
+              <img
+                src={item.images[0]?.url}
+                alt={item.model}
+                className="w-full max-w-md object-cover rounded-lg"
+              />
+              <p className="text-lg pt-10 font-medium">{item.model}</p>
+            </div>
+                  <div className="flex-col items-center justify-center">
+                    
+                  <p className="text-sm p-10 text-zinc-400">
                     Quantity: {item.quantity}
                   </p>
-                </div>
-
-                <p className="font-semibold">
-                  ₹{item.basePrice * item.quantity}
+                  <p className="pt-10 font-semibold">
+                  $  {item.basePrice * item.quantity}
                 </p>
+                  </div>
+                  
+              
+
+                
               </div>
             ))}
           </div>
