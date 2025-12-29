@@ -9,6 +9,7 @@ import Store from "./components/storePage/Store";
 import Login from "./components/Register/login"
 import Register from "./components/Register/register";
 import Cart from "./components/cart/cart";
+import CheckOutPage from "./components/checkout/checkOut";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -26,6 +27,7 @@ const  App= ()=>{
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/cart" element={<Cart/>} />
+          <Route path="/checkout" element={<CheckOutPage/>} />
     </Routes>
     </main>
  </BrowserRouter>   

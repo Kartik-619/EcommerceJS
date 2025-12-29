@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useUserStore from "./../../store/userStore";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { userName, cart } = useUserStore();
@@ -39,6 +40,10 @@ const Cart = () => {
     0
   );
 
+  const navigate=useNavigate();
+  const CheckOutButton=()=>{
+    navigate('/checkout');
+  }
   return (
     <div className="min-h-screen bg-black text-white pt-24">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -94,7 +99,7 @@ const Cart = () => {
                 <span>${totalPrice}</span>
               </div>
 
-              <button className="w-full mt-6 py-4 rounded-xl bg-green-500 text-black font-semibold hover:bg-green-400 transition">
+              <button onClick={CheckOutButton} className="w-full mt-6 py-4 rounded-xl bg-green-500 text-black font-semibold hover:bg-green-400 transition">
                 Check out & Pay
               </button>
             </div>
