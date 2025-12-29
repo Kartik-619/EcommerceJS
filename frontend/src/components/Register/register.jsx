@@ -37,6 +37,10 @@ const Register = () => {
                 password:password
             },
         );  
+
+        alert('Registration Successful!!!');    
+           
+            navigate('/login');
             console.log("user registered",response.data);
         }catch(err){
             console.log('registeration error',err);
