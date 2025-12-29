@@ -5,7 +5,6 @@ import axios from "axios";
 const Cart = () => {
   const { userName, cart } = useUserStore();
   const [cartItems, setCartItems] = useState([]);
-  const [totalPrice,setTotalPrice]=useState('');
 
   useEffect(() => {
     if (!cart || cart.length === 0) {
@@ -15,17 +14,12 @@ const Cart = () => {
 
     const fetchProducts = async () => {
       try {
-        console.log("Cart from Zustand:", cart);
-
         const responses = await Promise.all(
           cart.map((item) =>
-            axios.get(
-              `http://localhost:3007/api/products/${item.productId}`
-            )
+            axios.get(`http://localhost:3007/api/products/${item.productId}`)
           )
         );
 
-        // merge product data + quantity
         const productsWithQty = responses.map((res, index) => ({
           ...res.data,
           quantity: cart[index].quantity,
@@ -33,20 +27,25 @@ const Cart = () => {
 
         setCartItems(productsWithQty);
       } catch (err) {
-        console.error("Error fetching cart products:", err);
+        console.error(err);
       }
     };
 
     fetchProducts();
   }, [cart]);
 
-  return (
-    <div className="min-h-screen w-full bg-black text-white pt-24">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.basePrice * item.quantity,
+    0
+  );
 
-        <h1 className="text-4xl font-bold mb-10">
-          Welcome
-          <span className="text-zinc-500"> {userName || "Guest"}</span>
+  return (
+    <div className="min-h-screen bg-black text-white pt-24">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        
+        {/* Header */}
+        <h1 className="text-4xl font-bold mb-12">
+          Welcome <span className="text-zinc-400">{userName || "Guest"}</span>
         </h1>
 
         {cartItems.length === 0 ? (
@@ -54,36 +53,51 @@ const Cart = () => {
             Your bag is empty.
           </div>
         ) : (
-          <div className="space-y-6">
-            {cartItems.map((item) => (
-              <div
-                key={item.id}
-                className="flex justify-between size-100 items-center p-6 border border-zinc-800 rounded-2xl bg-zinc-900/40"
-              >
-                
-                <div className="flex-col items-center justify-center p-4">
-              <img
-                src={item.images[0]?.url}
-                alt={item.model}
-                className="w-full max-w-md object-cover rounded-lg"
-              />
-              <p className="text-lg pt-10 font-medium">{item.model}</p>
-            </div>
-                  <div className="flex-col items-center justify-center">
-                    
-                  <p className="text-sm p-10 text-zinc-400">
-                    Quantity: {item.quantity}
-                  </p>
-                  <p className="pt-10 font-semibold">
-                  $  {item.basePrice * item.quantity}
-                </p>
-                  </div>
-                  
-              
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            
+            {/* Cart Items */}
+            <div className="lg:col-span-2 space-y-6">
+              {cartItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex gap-6 p-6 border border-zinc-800 rounded-2xl bg-zinc-900/40"
+                >
+                  {/* Image */}
+                  <img
+                    src={item.images[0]?.url}
+                    alt={item.model}
+                    className="w-32 h-32 object-cover rounded-xl"
+                  />
 
-                
+                  {/* Info */}
+                  <div className="flex-1">
+                    <p className="text-lg font-semibold">{item.model}</p>
+                    <p className="text-sm text-zinc-400 mt-2">
+                      Quantity: {item.quantity}
+                    </p>
+                  </div>
+
+                  {/* Price */}
+                  <div className="text-right font-semibold">
+                    ${item.basePrice * item.quantity}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Summary */}
+            <div className="h-fit sticky top-28 border border-zinc-800 rounded-2xl p-6 bg-zinc-900/60">
+              <h2 className="text-2xl font-bold mb-6">Order Summary</h2>
+
+              <div className="flex justify-between mb-4 text-zinc-300">
+                <span>Total</span>
+                <span>${totalPrice}</span>
               </div>
-            ))}
+
+              <button className="w-full mt-6 py-4 rounded-xl bg-green-500 text-black font-semibold hover:bg-green-400 transition">
+                Check out & Pay
+              </button>
+            </div>
           </div>
         )}
       </div>
