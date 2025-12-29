@@ -32,6 +32,7 @@ const CheckOutForm=()=>{
                     className="w-full bg-white border border-black text-black rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
 
                 />
+               
                    
             </form>
         </div>
