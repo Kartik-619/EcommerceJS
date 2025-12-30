@@ -47,6 +47,14 @@ const LoginController = async (req, res) => {
       JWT_SECRET,
       { expiresIn: '1h' }
     );
+    
+    res.cookie("token", token, {
+      httpOnly: true,       // 🔥 JS can't access
+      secure: false,        // true in production (HTTPS)
+      sameSite: "lax",      // prevents CSRF
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
 
     return res.status(200).json({
       success: true,
