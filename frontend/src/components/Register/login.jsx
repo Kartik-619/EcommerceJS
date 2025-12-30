@@ -31,7 +31,7 @@ const Login=()=>{
                 username: inputUserName, 
                 email: inputEmail,
                 password: password
-            });  
+            }, { withCredentials: true });  
             
             const { user } = response.data;
     
