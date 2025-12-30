@@ -2,6 +2,8 @@ const express=require('express');
 const cors=require('cors');
 const PORT=3007;
 const app=express();
+const cookieParser = require("cookie-parser");
+
 
 const login=require('./routers/login');
 const register=require('./routers/register');
@@ -9,6 +11,8 @@ const register=require('./routers/register');
 //middlewares
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+
 
 app.use('/login',login);
 app.use('/register',register);
