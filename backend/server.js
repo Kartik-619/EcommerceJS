@@ -17,6 +17,7 @@ app.use(cookieParser());
 app.use('/login',login);
 app.use('/register',register);
 app.use('/api/products',require('./routers/Product'));
+app.use('/api/addtocart',require('./routers/cart'));
 
 app.listen(PORT,()=>{
     console.log('the server is running',PORT);

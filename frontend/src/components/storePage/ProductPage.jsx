@@ -34,8 +34,10 @@ const ProductPage = () => {
   }
 
 
-  const AddToCart=()=>{
+  const AddToCart=async()=>{
     try{
+    const response=axios.post('http://localhost:3007/api/addtocart/')
+
       addToCart(product.id);
     console.log(product.id);
     navigate("/cart");
