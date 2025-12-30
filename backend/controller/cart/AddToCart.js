@@ -1,46 +1,27 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const AddToCart = async (req, res) => {
-  try {
-    
-    const userId = req.user.userId; // from JWT middleware
-    const { productId, quantity=1} = req.body;
-    //product id from client
-
-    //upsert is used to do both update or insert
-    const cartItem = await prisma.cart.upsert({
-      where: {
-        userId_productId_variantId: {
-          userId,
-          productId,
-        },
-      },
-      //if product already exists we now increment its quantity
-      update: {
-        quantity: { increment: quantity },
-      },
-      //else we add it from the cart
-      create: {
-        userId,
-        productId,
-        quantity: 1,
-      },
+const addToCart = async (req, res) => {
+    const userId = req.user.userId;
+    const { productId } = req.body;
+  
+    const existing = await prisma.cart.findFirst({
+      where: { userId, productId },
     });
-
-    return res.json({
-      success: true,
-      message: "Item added to cart",
-      cartItem,
-    });
-
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Failed to add to cart",
-    });
-  }
-};
+  
+    if (existing) {
+      await prisma.cart.update({
+        where: { id: existing.id },
+        data: { quantity: { increment: 1 } },
+      });
+    } else {
+      await prisma.cart.create({
+        data: { userId, productId, quantity: 1 },
+      });
+    }
+  
+    res.json({ success: true });
+  };
+  
 
 module.exports = AddToCart;
