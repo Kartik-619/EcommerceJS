@@ -34,17 +34,14 @@ const ProductPage = () => {
   }
 
 
-  const AddToCart=async()=>{
-    try{
-    const response=axios.post('http://localhost:3007/api/addtocart/')
-
-      addToCart(product.id);
-    console.log(product.id);
-    navigate("/cart");
-  }catch(e){
-    console.log("the error in adding to cart is :",e);
-  }
-}
+  const handleAddToCart = async () => {
+    try {
+      await addToCart(product.id); // store handles API call and updates cart
+      navigate("/cart");
+    } catch (err) {
+      console.log("Error adding to cart:", err);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -120,7 +117,7 @@ const ProductPage = () => {
                 </button>
 
 
-                <button onClick={AddToCart} className="flex-1 border-2 border-gray-300 text-gray-700 py-4 px-8 rounded-full text-lg font-semibold hover:border-gray-400 transition-colors duration-200">
+                <button onClick={handleAddToCart} className="flex-1 border-2 border-gray-300 text-gray-700 py-4 px-8 rounded-full text-lg font-semibold hover:border-gray-400 transition-colors duration-200">
                   Add to Cart
                 </button>
               </div>

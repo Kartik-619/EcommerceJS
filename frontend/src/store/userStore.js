@@ -1,74 +1,62 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
 
-const useUserStore = create(
-  persist(
-    (set) => ({
-      userName: '',
-      email: '',
-      cart: [],
+const useUserStore = create((set) => ({
+  userName: "",
+  email: "",
+  cart: [],
 
-      setuserName: (name) => set({ userName: name }),
-      setEmail: (email) => set({ email }),
-      logout: () => set({ userName: '', email: '', cart: [] }),
+  setuserName: (name) => set({ userName: name }),
+  setEmail: (email) => set({ email: email }),
+  logout: () => set({ userName: "", email: "", cart: [] }),
 
-      //  ADD TO CART
-      addToCart: (productId) =>
-        set((state) => {
-          const item = state.cart.find(
-            (i) => i.productId === productId
-          );
+  setCart: (cartItems) => set({ cart: cartItems }),
 
-          // CASE 1: product already exists → increment quantity
-          if (item) {
-            return {
-              cart: state.cart.map((i) =>
-                //if product already exists, increment its quantity
-                i.productId === productId
-                  ? { ...i, quantity: i.quantity + 1 }
-                  : i //else just add it into the cart array
-              ),
-            };
-          }
+  addToCart: async (productId) => {
+    try {
+      const res = await fetch("http://localhost:3007/cart/add", {
+        method: "POST",
+        credentials: "include", // send cookies (JWT)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId }),
+      });
 
-          // CASE 2: product does not exist → add new item
-          return {
-            cart: [...state.cart, { productId, quantity: 1 }],
-          };
-        }),
+      const data = await res.json();
 
-      //  REMOVE FROM CART
-      removeFromCart: (productId) =>
-        set((state) => {
-          const item = state.cart.find(
-            (i) => i.productId === productId
-          );
-
-          if (!item) return { cart: state.cart };
-
-          // CASE 1: quantity > 1 → decrement
-          if (item.quantity > 1) {
-            return {
-              cart: state.cart.map((i) =>
-                i.productId === productId
-                  ? { ...i, quantity: i.quantity - 1 }
-                  : i
-              ),
-            };
-          }
-
-          // CASE 2: quantity === 1 → remove item
-          return {
-            cart: state.cart.filter(
-              (i) => i.productId !== productId
-            ),
-          };
-        }),
-    }),
-    {
-      name: 'user-storage',
+      set({ cart: data.cart }); // sync store with backend
+    } catch (err) {
+      console.error(err);
     }
-  )
-);
+  },
+
+//  removeFromCart: async (productId) => {
+  //  try {
+  //    const res = await fetch("http://localhost:3007/cart/remove", {
+  //      method: "POST",
+  //      credentials: "include",
+  //      headers: { "Content-Type": "application/json" },
+  //      body: JSON.stringify({ productId }),
+  //    });
+//
+  //    const data = await res.json();
+  //    set({ cart: data.cart });
+  //  } catch (err) {
+  //    console.error(err);
+  //  }
+  //},
+
+  fetchCart: async () => {
+    try {
+      const res = await fetch("http://localhost:3007/cart", {
+        method: "GET",
+        credentials: "include",
+      });
+
+      const data = await res.json();
+      set({ cart: data.cart });
+    } catch (err) {
+      console.error(err);
+    }
+  },
+}));
 
 export default useUserStore;
