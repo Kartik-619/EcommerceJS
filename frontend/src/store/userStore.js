@@ -21,8 +21,8 @@ const useUserStore = create((set) => ({
       });
 
       const data = await res.json();
-
-      set({ cart: data.cart }); // sync store with backend
+      console.log(data);
+      set({ cart: data.cart ||[] }); // sync store with backend
     } catch (err) {
       console.error(err);
     }
@@ -46,13 +46,14 @@ const useUserStore = create((set) => ({
 
   fetchCart: async () => {
     try {
-      const res = await fetch("http://localhost:3007/api/addtocart", {
+      const res = await fetch("http://localhost:3007/api/cart", {
         method: "GET",
         credentials: "include",
       });
 
       const data = await res.json();
-      set({ cart: data.cart });
+      console.log(data);
+      set({ cart: data.cart ||[] }); // sync store with backend
     } catch (err) {
       console.error(err);
     }

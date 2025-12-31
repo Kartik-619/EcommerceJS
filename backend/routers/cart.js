@@ -6,9 +6,9 @@ const addToCart = require("../controller/cart/AddToCart");
 const fetchCart = require("../controller/cart/cartFetch");
 
 // ADD ITEM → POST
-router.post("/", auth, addToCart);
+router.post("/addtocart", auth, addToCart);
 
 // FETCH CART → GET
-router.get("/", auth, fetchCart);
+router.get("/cart", auth, fetchCart);
 
 module.exports = router;
