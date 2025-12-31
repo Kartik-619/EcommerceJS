@@ -46,7 +46,7 @@ const useUserStore = create((set) => ({
 
   fetchCart: async () => {
     try {
-      const res = await fetch("http://localhost:3007/cart", {
+      const res = await fetch("http://localhost:3007/api/addtocart", {
         method: "GET",
         credentials: "include",
       });

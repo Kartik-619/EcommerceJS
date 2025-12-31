@@ -2,16 +2,18 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient({});//we require an empty object as a destructor
 
 const CartFetch=async(req,res)=>{
-    const cart=await prisma.cart.findMany({
-        where:{userId},
-        include:{
-            productId:true,
-           
-            quantity:true
+    try{  
+        const cart=await prisma.cart.findMany({
+            where:{userId},
+                include:{
+                productId:true,
+                include: {
+                images: true,
+              },
         }
     });
 
-    try{
+ 
         if(!cart){
             return res.status(404).json({success:false,message:'cart not found'});
         }
