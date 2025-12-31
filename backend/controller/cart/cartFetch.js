@@ -6,7 +6,7 @@ const CartFetch=async(req,res)=>{
         where:{userId},
         include:{
             productId:true,
-            variant:true,
+           
             quantity:true
         }
     });

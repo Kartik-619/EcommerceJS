@@ -13,7 +13,7 @@ const useUserStore = create((set) => ({
 
   addToCart: async (productId) => {
     try {
-      const res = await fetch("http://localhost:3007/cart/add", {
+      const res = await fetch("http://localhost:3007/api/addtocart", {
         method: "POST",
         credentials: "include", // send cookies (JWT)
         headers: { "Content-Type": "application/json" },
