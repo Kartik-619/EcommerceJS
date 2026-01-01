@@ -1,54 +1,68 @@
 import useUserStore from "../../store/userStore";
 
-const CheckOutForm=()=>{
-    const cart = useUserStore((state) => state.cart);
-    return(
-        <div className="h-full w-full bg-white flex items-center justify-center p-4">
-            <form className=" bg-slate-300 border-2 border-black rounded-xl p-8  space-y-6 w-full max-w-md">
-                <input
-                    placeholder="username"
-                    type="name"
-                    className="w-full bg-white border border-black text-black rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
+const inputClass =
+  "w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-black placeholder-neutral-500 transition-all focus:outline-none focus:border-black focus:ring-2 focus:ring-black/10";
 
-                />
-                 <input
-                    placeholder="email"
-                    type="email"
-                    className="w-full bg-white border border-black text-black rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
+const CheckOutForm = () => {
+  const cart = useUserStore((state) => state.cart);
 
-                />
-                 <input
-                    placeholder="Full Name"
-                    type="name"
-                    className="w-full bg-white border border-black text-black rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
-
-                />
-                 <input
-                    placeholder="Phone Number"
-                    type="tel"
-                    className="w-full bg-white border border-black text-black rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
-
-                />
-                 <input
-                    placeholder="Address for delivery"
-                    type="name"
-                    className="w-full bg-white border border-black text-black rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
-
-                />
-                <h2>List of items :</h2>
-                <ul>
-                    {
-                        cart.map((i)=>(
-                            <li key={i.productId}>{i.productId}*{i.quantity}</li>
-                        ))
-                    }
-                </ul>
-               
-                   <button
-                    className="w-full bg-white border border-black text-black rounded-lg px-4 py-3 focus:outline-none focus:border-[#00f0ff] focus:shadow-[0_0_10px_#00f0ff] transition-all"
-                   >Proceed to Pay</button>
-            </form>
+  return (
+    <div className="min-h-screen w-full bg-neutral-50 flex items-center justify-center px-4">
+      <form className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg space-y-6">
+        
+        {/* Header */}
+        <div className="space-y-1">
+          <h2 className="text-2xl font-semibold text-black">
+            Checkout
+          </h2>
+          <p className="text-sm text-neutral-500">
+            Enter your delivery and contact details
+          </p>
         </div>
-    )
-}
+
+        {/* Inputs */}
+        <div className="space-y-4">
+          <input
+            type="text"
+            placeholder="Username"
+            className={inputClass}
+          />
+
+          <input
+            type="email"
+            placeholder="Email address"
+            className={inputClass}
+          />
+
+          <input
+            type="text"
+            placeholder="Full name"
+            className={inputClass}
+          />
+
+          <input
+            type="tel"
+            placeholder="Phone number"
+            className={inputClass}
+          />
+
+          <input
+            type="text"
+            placeholder="Delivery address"
+            className={inputClass}
+          />
+        </div>
+
+        {/* CTA */}
+        <button
+          type="submit"
+          className="w-full rounded-lg bg-black py-3 text-sm font-medium text-white transition hover:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-black/20"
+        >
+          Proceed to Payment
+        </button>
+      </form>
+    </div>
+  );
+};
+
 export default CheckOutForm;
