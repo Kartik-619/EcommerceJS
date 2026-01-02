@@ -83,12 +83,12 @@ model Order{
   id        String   @id @default(cuid())
   userId    Int
   productId Int
-  total Int
+
   tax           Int
   
   totalAmount   Int 
   status String
- paymentIntent String?  // Stripe payment intent id
+  paymentIntent String?  // Stripe payment intent id
 
   createdAt     DateTime @default(now())
   user    User    @relation(fields: [userId], references: [id])

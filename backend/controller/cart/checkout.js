@@ -39,7 +39,7 @@ const OrderSummary = async (req, res) => {
       const tax=Math.round(subtotal*0.18);
       totalPrice=subtotal+tax;
 
-
+      
       return res.json({
         success:true,
         user,

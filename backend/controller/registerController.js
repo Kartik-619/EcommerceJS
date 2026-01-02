@@ -38,7 +38,6 @@ const RegisterController=async (req,res)=>{
             password:hashedPassword,
             role:'USER'}
     });
-
     return res.status(200).json({
         success:true,
         message:'Register successful',
