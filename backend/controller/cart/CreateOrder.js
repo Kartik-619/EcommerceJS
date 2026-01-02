@@ -1,50 +1,81 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient({});//we require an empty object as a destructor
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
-const CreateOrder=async(req,res)=>{
-    try{
-        const userId = req.user.id;
-  
-        const user = await prisma.user.findUnique({
-          where: { id: userId },
-          select: {
-            id: true,
-            username: true,
-            email: true,
-          },
-        }); 
+const createOrder = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { paymentIntentId } = req.body;
 
-        if(!user){
-            return res.status(400).json({
-                success:false,
-                message:"The user doesn't exist"
-            });
-        }
-
-        const cartItems = await prisma.cart.findMany({
-            where: {
-              userId,
-            },
-            include: {
-              product: {
-              },
-            },
-          });
-
-          if(cartItems.length===0){
-            return res.status(400).json({message:'The cart is empty '});
-          }
-          cartItems.forEach(item=>{
-            subtotal+=item.product.basePrice*item.quantity;
-          })
-          const tax=Math.round(subtotal*0.18);
-          totalPrice=subtotal+tax;
-    
-
-        return res.json({
-
-        })
-    }catch(e){
-        console.log('Create Order Error',e);
+    if (!paymentIntentId) {
+      return res.status(400).json({
+        success: false,
+        message: "PaymentIntent ID is required",
+      });
     }
-}
+
+    // 1️ Fetch cart items
+    const cartItems = await prisma.cart.findMany({
+      where: { userId },
+      include: {
+        product: true,
+      },
+    });
+
+    if (cartItems.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Cart is empty",
+      });
+    }
+
+    // 2️ Calculate totals
+    let subtotal = 0;
+    cartItems.forEach((item) => {
+      subtotal += item.product.basePrice * item.quantity;
+    });
+
+    const tax = Math.round(subtotal * 0.18);
+    const totalAmount = subtotal + tax;
+
+    // 3️ Create order
+    const order = await prisma.order.create({
+      data: {
+        userId,
+        tax,
+        totalAmount,
+        status: "pending",
+        paymentIntent: paymentIntentId,
+        orderItems: {
+          create: cartItems.map((item) => ({
+            productId: item.productId,
+            quantity: item.quantity,
+            price: item.product.basePrice,
+          })),
+        },
+      },
+      include: {
+        orderItems: true,
+      },
+    });
+
+    // 4️⃣ Clear cart
+    await prisma.cart.deleteMany({
+      where: { userId },
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Order created successfully",
+      order,
+    });
+
+  } catch (err) {
+    console.error("CREATE ORDER ERROR:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+module.exports = createOrder;
