@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient({});//we require an empty object as a destructor
 
-const Checkout = async (req, res) => {
+const OrderSummary = async (req, res) => {
     let totalPrice=0;
     let subtotal=0;
     try {
@@ -9,6 +9,16 @@ const Checkout = async (req, res) => {
   
       const userId = req.user.id;
   
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          id: true,
+          username: true,
+          email: true,
+        },
+      });
+
+
       const cartItems = await prisma.cart.findMany({
         where: {
           userId,
@@ -31,10 +41,15 @@ const Checkout = async (req, res) => {
 
 
       return res.json({
-        subtotal,
-        tax,       
-        totalAmount,
+        success:true,
+        user,
+        summary:{
+          subtotal,
+          tax,       
+          totalAmount,
+        },
         items: cartItems,
+       
       });
     } catch (err) {
       console.error("Checkout ERROR:", err);
@@ -45,5 +60,5 @@ const Checkout = async (req, res) => {
     }
   };
   
-  module.exports = Checkout;
+  module.exports = OrderSummary;
   
