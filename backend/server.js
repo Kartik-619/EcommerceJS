@@ -22,6 +22,7 @@ app.use('/login',login);
 app.use('/register',register);
 app.use('/api/products',require('./routers/Product'));
 app.use('/api',require('./routers/cart'));
+app.use('/api',require('./routers/ordersummary'));
 
 app.listen(PORT,()=>{
     console.log('the server is running',PORT);
