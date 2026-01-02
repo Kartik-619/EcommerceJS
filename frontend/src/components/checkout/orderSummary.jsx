@@ -1,4 +1,4 @@
-const orderSummary=()=>{
+const OrderSummary=()=>{
     return(<></>)
 }
-export default orderSummary;
+export default OrderSummary;
