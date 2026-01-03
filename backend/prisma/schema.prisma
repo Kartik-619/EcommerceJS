@@ -37,7 +37,7 @@ model Product {
   variants    ProductVariant[]
   specs       ProductSpec[]
   cartItems Cart[]
-  orders Order[]
+  orderItems  OrderItem[]
 }
 
 model ProductImage {
@@ -80,18 +80,20 @@ model Cart {
 }
 model OrderItem {
   id        String   @id @default(cuid())
-  orderId  String
+  orderId   String
   productId Int
-  quantity Int
-  price    Int
+  quantity  Int
+  price     Int
 
   order   Order   @relation(fields: [orderId], references: [id])
   product Product @relation(fields: [productId], references: [id])
 }
+
+
 model Order{
   id        String   @id @default(cuid())
   userId    Int
-  productId Int
+
 
   tax           Int
   
@@ -101,8 +103,7 @@ model Order{
 
   createdAt     DateTime @default(now())
   user    User    @relation(fields: [userId], references: [id])
-  product Product @relation(fields: [productId], references: [id])
 
-  @@unique([userId, productId])
-
+  @@unique([userId])
+orderItems OrderItem[] 
 }

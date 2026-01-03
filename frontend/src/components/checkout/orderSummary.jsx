@@ -10,7 +10,7 @@ const OrderSummary = () => {
     const fetchSummary = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3007/api/order/summary",
+          "http://localhost:3007/api/ordersummary",
           { withCredentials: true }
         );
 
@@ -32,7 +32,7 @@ const OrderSummary = () => {
   const { user, summary: totals, items } = summary;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow">
+    <div className="max-w-5xl  mx-auto p-6 bg-white rounded-xl shadow">
       <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
 
       {/* User Info */}
@@ -69,7 +69,7 @@ const OrderSummary = () => {
         </div>
         <div className="flex justify-between font-semibold text-base">
           <span>Total</span>
-          <span>₹{totals.totalAmount}</span>
+          <span>₹{totals.totalPrice}</span>
         </div>
       </div>
 

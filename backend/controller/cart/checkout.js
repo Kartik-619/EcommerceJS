@@ -46,7 +46,7 @@ const OrderSummary = async (req, res) => {
         summary:{
           subtotal,
           tax,       
-          totalAmount,
+          totalPrice,
         },
         items: cartItems,
        
