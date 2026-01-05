@@ -78,6 +78,9 @@ const GenerateOrder = async (req, res) => {
           });
 
     } catch (e) {
-        console.log(e)
+        console.log(e);
+        return res.status(500).json({success:false,message:'The payment has failed'});
     }
 }
+
+module.exports=GenerateOrder;
