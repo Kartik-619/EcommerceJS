@@ -90,20 +90,16 @@ model OrderItem {
 }
 
 
-model Order{
-  id        String   @id @default(cuid())
-  userId    Int
-
-
+model Order {
+  id            String   @id @default(cuid())
+  userId        Int
   tax           Int
-  
-  totalAmount   Int 
-  status String
-  paymentIntent String?  // Stripe payment intent id
-
+  totalAmount   Int
+  status        String   // PENDING | COMPLETED | FAILED
+  uroPayOrderId String?  @unique
+  upiReference  String?
   createdAt     DateTime @default(now())
-  user    User    @relation(fields: [userId], references: [id])
 
-  @@unique([userId])
-orderItems OrderItem[] 
+  user        User        @relation(fields: [userId], references: [id])
+  orderItems  OrderItem[]
 }

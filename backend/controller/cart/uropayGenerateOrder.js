@@ -50,6 +50,32 @@ const GenerateOrder = async (req, res) => {
             },
           });
 
+          const response = await axios.post(
+            `${process.env.UROPAY_API_URL}/order/generate`,
+            {
+              vpa: "shopname@bicici",          // merchant VPA
+              vpaName: "Ecomm Kartik",
+              amount: totalAmount * 100,   // paise
+              merchantOrderId: order.id,
+              customerName: user.username,
+              customerEmail: user.email,
+              transactionNote: `Order ${order.id}`,
+            }, { headers: getUroPayHeaders() }
+        );
+        //save uropay order id
+        await prisma.order.update({
+            where: { id: order.id },
+            data: {
+              paymentIntent: response.data.data.uroPayOrderId,
+            },
+          });
+      
+          res.json({
+            qrCode: response.data.data.qrCode,
+            upiString: response.data.data.upiString,
+            uroPayOrderId: response.data.data.uroPayOrderId,
+            orderId: order.id,
+          });
 
     } catch (e) {
         console.log(e)
