@@ -55,7 +55,7 @@ const GenerateOrder = async (req, res) => {
             {
               vpa: "shopname@bicici",          // merchant VPA
               vpaName: "Ecomm Kartik",
-              amount: totalAmount * 100,   // paise
+              amount: totalAmount ,   // paise
               merchantOrderId: order.id,
               customerName: user.username,
               customerEmail: user.email,

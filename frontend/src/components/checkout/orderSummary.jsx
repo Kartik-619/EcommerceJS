@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const OrderSummary = () => {
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const navigate=useNavigate();
   const handlePayment=async(e)=>{
     e.preventDefault();
     try{
-      const response=await axios.post("http://localhost:3007/api//uropay/makeorder",{
+      const response=await axios.post("http://localhost:3007/api//uropay/makeorder",{},
+ 
+      {
         withCredentials:true,
-      })
+      });
+      navigate('/uroUpi')
     }catch(err){
       console.error('The payment rout calling error',err);
     }

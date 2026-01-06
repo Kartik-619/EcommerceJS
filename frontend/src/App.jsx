@@ -30,6 +30,8 @@ const  App= ()=>{
           <Route path="/cart" element={<Cart/>} />
           <Route path="/checkout" element={<CheckOutPage/>} />
           <Route path="/ordersummary" element={<OrderSummary/>} />
+          <Route path="/uroUpi" element={<UroUpi />} />
+
     </Routes>
     </main>
  </BrowserRouter>   
