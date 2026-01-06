@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
@@ -7,7 +8,7 @@ const Register = () => {
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState(''); // Added for confirmation
-
+    const navigate=useNavigate(); 
     const UserNameHandler = (e) => {
         setUsername(e.target.value);
     };

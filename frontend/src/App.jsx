@@ -11,7 +11,7 @@ import Register from "./components/Register/register";
 import Cart from "./components/cart/cart";
 import CheckOutPage from "./components/checkout/checkOut";
 import OrderSummary from "./components/checkout/orderSummary";
-
+import UroUpi from "./components/checkout/UroUpi"
 
 gsap.registerPlugin(ScrollTrigger);
 const  App= ()=>{
