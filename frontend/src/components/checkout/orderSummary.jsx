@@ -6,6 +6,17 @@ const OrderSummary = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const handlePayment=async(e)=>{
+    e.preventDefault();
+    try{
+      const response=await axios.post("http://localhost:3007/api//uropay/makeorder",{
+        withCredentials:true,
+      })
+    }catch(err){
+      console.error('The payment rout calling error',err);
+    }
+  }
+
   useEffect(() => {
     const fetchSummary = async () => {
       try {
@@ -73,7 +84,7 @@ const OrderSummary = () => {
         </div>
       </div>
 
-      <button className="mt-6 w-full bg-black text-white py-3 rounded-lg">
+      <button onClick={handlePayment} className="mt-6 w-full bg-black text-white py-3 rounded-lg">
         Proceed to Payment
       </button>
     </div>
