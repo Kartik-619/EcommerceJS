@@ -96,8 +96,7 @@ model Order {
   tax           Int
   totalAmount   Int
   status        String   // PENDING | COMPLETED | FAILED
-  uroPayOrderId String?  @unique
-  upiReference  String?
+  paymentIntent  String? 
   createdAt     DateTime @default(now())
 
   user        User        @relation(fields: [userId], references: [id])
