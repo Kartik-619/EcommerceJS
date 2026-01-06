@@ -10,7 +10,9 @@ const OrderSummary = () => {
   const handlePayment=async(e)=>{
     e.preventDefault();
     try{
-      const response=await axios.post("http://localhost:3007/api/createorder",{},
+      const response=await axios.post("http://localhost:3007/api/createorder",{
+        paymentIntentId: "MOCK_UPI_" + Date.now(),
+      },
  
       {
         withCredentials:true,
