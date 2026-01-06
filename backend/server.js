@@ -23,8 +23,8 @@ app.use('/register',register);
 app.use('/api/products',require('./routers/Product'));
 app.use('/api',require('./routers/cart'));
 app.use('/api',require('./routers/ordersummary'));
-app.use('/api',require('./routers/uroPay'));
-app.use("/api", require("./routers/uro.webhook"));
+app.use('/api',require('./routers/createorder'));
+
 
 
 app.listen(PORT,()=>{

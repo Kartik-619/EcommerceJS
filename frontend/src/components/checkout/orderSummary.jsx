@@ -15,7 +15,7 @@ const OrderSummary = () => {
       //{
         //withCredentials:true,
       //});
-      navigate('/uroUpi')
+      
     }catch(err){
       console.error('The payment rout calling error',err);
     }
