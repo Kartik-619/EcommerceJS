@@ -17,7 +17,6 @@ const OrderSummary = () => {
       {
         withCredentials:true,
       });
-      const data=await response.data();
       navigate('/paymentstimulation');
     }catch(err){
       console.error('The payment rout calling error',err);

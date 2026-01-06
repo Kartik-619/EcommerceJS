@@ -25,7 +25,7 @@ const PaymentSimulation = () => {
       color: "#16a34a",
       duration: 0.8,
       stagger: 0.2
-    }, "+=0.5");
+    }, "+=0.8");
 
     return () => {
       split.revert(); // cleanup
@@ -35,13 +35,13 @@ const PaymentSimulation = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/paymentdone');
-    }, 4000); // realistic processing time
+    }, 5000); // realistic processing time
 
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-white rounded-xl shadow">
+    <div className="w-full h-full flex items-center justify-center bg-black rounded-xl shadow">
       <h3 className="split text-5xl font-semibold text-green-500">
         Processing Payment...
       </h3>
