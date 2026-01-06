@@ -11,6 +11,8 @@ import Register from "./components/Register/register";
 import Cart from "./components/cart/cart";
 import CheckOutPage from "./components/checkout/checkOut";
 import OrderSummary from "./components/checkout/orderSummary";
+import PaymentDone from "./components/checkout/PaymentDone";
+import PaymentSimulation from "./components/checkout/PaymentStimulation";
 
 gsap.registerPlugin(ScrollTrigger);
 const  App= ()=>{
@@ -29,6 +31,9 @@ const  App= ()=>{
           <Route path="/cart" element={<Cart/>} />
           <Route path="/checkout" element={<CheckOutPage/>} />
           <Route path="/ordersummary" element={<OrderSummary/>} />
+          <Route path="/paymentstimulation" element={<PaymentSimulation/>} />
+          <Route path="/paymentdone" element={<PaymentDone/>} />
+
 
     </Routes>
     </main>

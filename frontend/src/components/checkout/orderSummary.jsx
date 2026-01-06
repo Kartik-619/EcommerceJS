@@ -10,12 +10,13 @@ const OrderSummary = () => {
   const handlePayment=async(e)=>{
     e.preventDefault();
     try{
-     // const response=await axios.post("http://localhost:3007/api/uropay/makeorder",{},
+      const response=await axios.post("http://localhost:3007/api/createorder",{},
  
-      //{
-        //withCredentials:true,
-      //});
-      
+      {
+        withCredentials:true,
+      });
+      const data=await response.data();
+      navigate('/paymentstimulation');
     }catch(err){
       console.error('The payment rout calling error',err);
     }
