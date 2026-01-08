@@ -42,7 +42,7 @@ const Login=()=>{
             console.log(user.email);
             alert('Login Successful!!!');    
             setLogin(true);
-            navigate('/store');  
+            navigate('/');  
     
         } catch(err) {
             console.log(err);
