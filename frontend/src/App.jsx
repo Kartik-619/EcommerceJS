@@ -13,6 +13,7 @@ import CheckOutPage from "./components/checkout/checkOut";
 import OrderSummary from "./components/checkout/orderSummary";
 import PaymentDone from "./components/checkout/PaymentDone";
 import PaymentSimulation from "./components/checkout/PaymentStimulation";
+import ScrollToTop from "./components/ScrollOnTop";
 
 gsap.registerPlugin(ScrollTrigger);
 const  App= ()=>{
@@ -20,6 +21,7 @@ const  App= ()=>{
 
     <BrowserRouter>
         <NavBar/>
+        <ScrollToTop/>
         <main className="pt-15">
         <Routes>      
           <Route path="/"  element={<Mac/>}/>
