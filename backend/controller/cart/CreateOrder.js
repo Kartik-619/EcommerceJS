@@ -59,9 +59,7 @@ const createOrder = async (req, res) => {
     });
 
     // 4️ Clear cart
-    await prisma.cart.deleteMany({
-      where: { userId },
-    });
+   
 
     return res.status(201).json({
       success: true,
