@@ -2,6 +2,6 @@ const express=require('express');
 const router=express.Router();
 const updateRouter=require('../controller/cart/updateOrder');
 
-router.put('/orderdone',updateRouter);
+router.patch('/orderdone',updateRouter);
 
 module.exports=router;

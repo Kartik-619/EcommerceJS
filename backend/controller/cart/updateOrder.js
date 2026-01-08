@@ -19,7 +19,7 @@ try{
 
 
         //change the order status
-        const order=await prisma.order.update({
+        const order=await prisma.order.patch({
             where:{userId},
           data: {status:'complete'},
         })
