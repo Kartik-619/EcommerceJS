@@ -44,11 +44,11 @@ const PaymentDone = () => {
     // Truck animation
     gsap.fromTo(
       ".truck",
-      { x: "-120%" },
+      { x: "180%" },
       {
-        x: "120%",
+        x: "-110%",
         duration: 6,
-        repeat: -1,
+        repeat: 0,
         ease: "linear",
       }
     );
