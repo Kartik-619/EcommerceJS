@@ -4,7 +4,7 @@ A full-stack e-commerce application built from scratch with a strong focus on ba
 This project simulates a real production e-commerce system including authentication, cart management, order processing, and checkout experience.
 <br>
 <h3>🚀 Tech Stack</h3>
-<br>Frontend
+<br><h4>Frontend</h4>
 <br>
 React
 
@@ -20,7 +20,7 @@ Axios – API communication
 
 React Router – routing & protected routes
 <br>
-Backend
+<h4>Backend</h4>
 
 Node.js
 
@@ -34,7 +34,7 @@ JWT Authentication (Cookie-based)
 
 RESTful API architecture
 <br>
-Tooling & Dev
+<h4>Tooling & Dev</h4>
 
 Git & GitHub
 
@@ -95,7 +95,7 @@ Payment flow effects
 
 Text & UI micro-interactions
 
-Three.js used for:
+<h4>Three.js used for:</h4>
 
 Interactive visual elements
 
@@ -118,7 +118,7 @@ Clean component structure
 User-friendly feedback states (loading / errors)
 <br>
 <h3>🧠 What I Learned</h3><br>
-Backend & System Design
+<h4>Backend & System Design</h4>
 
 Designing backend-first applications
 
@@ -130,7 +130,7 @@ Writing scalable REST APIs
 
 Middleware-based authentication & request validation
 
-Frontend Engineering
+<h4>Frontend Engineering</h4>
 
 Managing state across complex flows
 
@@ -150,7 +150,7 @@ Using Three.js meaningfully (not just visual noise)
 
 Improving perceived performance with motion
 
-Debugging & Real-World Issues
+<h4>Debugging & Real-World Issues</h4>
 
 Prisma validation & schema mismatches
 
