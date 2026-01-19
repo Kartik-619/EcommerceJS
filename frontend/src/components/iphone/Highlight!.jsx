@@ -39,7 +39,7 @@ const HighlightsI = () => {
       tl.to(".mask img", {
         scale: 1.5,
         ease: "power1.inOut",
-        duration: 2,
+        duration: 1.5,
       })
         .to(
           ".content",
@@ -47,7 +47,7 @@ const HighlightsI = () => {
             opacity: 1,
             y: -20,
             ease: "power1.out",
-            duration: 1.5,
+            duration: 1.2,
           },
           "-=1"
         );
