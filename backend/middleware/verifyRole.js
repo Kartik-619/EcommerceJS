@@ -5,7 +5,7 @@ const verifyAdminRole=(req,res,next)=>{
     try{
     
    if(req.user.role!=="ADMIN"){
-        return res.status(403).json({success:"false",message:"Only the Admin is allowed to access the route"});
+        return res.status(403).json({success:false,message:"Only the Admin is allowed to access the route"});
    }
   
         
