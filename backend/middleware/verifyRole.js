@@ -1,24 +1,20 @@
-const express = require('express');
-const router = express.Router();
-const verifyToken = require('../middleware/auth');
-const authorize = require('../middleware/roleMiddleware');
+//middleware created to verify routes after login
 
-// Public route
-router.get('/public-news', (req, res) => res.send("Anyone can see this"));
 
-// Protected: Any logged-in user
-router.get('/profile', verifyToken, (req, res) => {
-    res.json({ message: "Welcome user", data: req.user });
-});
-
-// RBAC: Only Admins can access
-router.get('/admin/stats', verifyToken, authorize(['admin']), (req, res) => {
-    res.json({ message: "Welcome Admin, here is the sensitive data." });
-});
-
-// RBAC: Admins OR Editors can access
-router.post('/content/create', verifyToken, authorize(['admin', 'editor']), (req, res) => {
-    res.json({ message: "Content created successfully" });
-});
-
-module.exports = router;
+const verifyAdminRole=(req,res,next)=>{
+    //extract from token's bearer the payload
+    try{
+    
+   if(req.user.role!=="ADMIN"){
+        return res.status(403).json({success:"false",message:"Only the Admin is allowed to access the route"});
+   }
+  
+        
+        next();
+    }catch(err){
+        console.log(err);
+        return res.status(401).json({ message: "Unauthorized: Invalid User" });
+    }
+};
+module.exports = verifyAdminRole;
+    
