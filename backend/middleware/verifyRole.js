@@ -1,4 +1,3 @@
-//middleware created to verify routes after login
 
 
 const verifyAdminRole=(req,res,next)=>{

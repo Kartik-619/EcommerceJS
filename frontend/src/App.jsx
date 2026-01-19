@@ -14,6 +14,7 @@ import OrderSummary from "./components/checkout/orderSummary";
 import PaymentDone from "./components/checkout/PaymentDone";
 import PaymentSimulation from "./components/checkout/PaymentStimulation";
 import ScrollToTop from "./components/ScrollOnTop";
+import Admin from "./components/ADMIN/admin";
 
 gsap.registerPlugin(ScrollTrigger);
 const  App= ()=>{
@@ -35,6 +36,7 @@ const  App= ()=>{
           <Route path="/ordersummary" element={<OrderSummary/>} />
           <Route path="/paymentstimulation" element={<PaymentSimulation/>} />
           <Route path="/paymentdone" element={<PaymentDone/>} />
+          <Route path="/admin" element={<Admin/>} />
 
 
     </Routes>

@@ -4,9 +4,11 @@ const useUserStore = create((set) => ({
   userName: "",
   email: "",
   cart: [],
+  role:"USER",
 
   setuserName: (name) => set({ userName: name }),
   setEmail: (email) => set({ email: email }),
+  setRole: (role) => set({ role: role }),
   logout: () => set({ userName: "", email: "", cart: [] }),
 
   setCart: (cartItems) => set({ cart: cartItems }),

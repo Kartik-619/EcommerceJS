@@ -10,7 +10,7 @@ const Login=()=>{
     const [inputUserName, setInputUserName] = useState('');
     const [inputEmail, setInputEmail] = useState('');
     const [LoggedIn,setLogin]=useState(false);
-    const { userName, email, setuserName, setEmail } = useUserStore();
+    const { userName, email,role, setuserName, setEmail,setRole } = useUserStore();
     const [password,setPassword]=useState('');
     const UserNameHandler=(e)=>{
         setuserName(e.target.value);
@@ -30,19 +30,28 @@ const Login=()=>{
                 // FIX: Use inputUserName and inputEmail instead of userName and email
                 username: inputUserName, 
                 email: inputEmail,
-                password: password
+                password: password,
+                role
             }, { withCredentials: true });  
             
             const { user } = response.data;
     
             // Update global state with data returned from backend
+            setRole(user.role);
             setuserName(user.username);
             setEmail(user.email);
             console.log(user.username);
             console.log(user.email);
             alert('Login Successful!!!');    
             setLogin(true);
-            navigate('/');  
+            if(role=="ADMIN"){
+                navigate('/admin');  
+
+            }
+            if(role=="USER"){
+                navigate('/');  
+
+            }
     
         } catch(err) {
             console.log(err);
