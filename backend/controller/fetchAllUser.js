@@ -33,5 +33,4 @@ const fetchAllUser=async(req,res)=>{
         });
     }
 }
-
-exports.module=fetchAllUser;
+module.exports=fetchAllUser;
