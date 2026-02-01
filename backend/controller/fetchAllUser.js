@@ -8,7 +8,11 @@ const fetchAllUser=async(req,res)=>{
                 username:true,
                 email:true,
                 role:true,
-                orderItems:{
+               orders:{ 
+                id:true,
+                status:true,
+                totalAmount:true,
+                select:{orderItems:{
                     select:{
                         id:true,
                         quantity:true,
@@ -21,7 +25,7 @@ const fetchAllUser=async(req,res)=>{
                             }
                         }
                     }
-                },
+                },},},
                
             }
         });
