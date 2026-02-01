@@ -45,11 +45,11 @@ const Login=()=>{
             alert('Login Successful!!!');    
             setLogin(true);
            
-            if(role=="ADMIN"){
+            if(user.role=="ADMIN"){
                 navigate('/admin');  
 
             }else{
-                navigate('/admin');  
+                navigate('/');  
 
             }
     

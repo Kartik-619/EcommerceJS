@@ -1,136 +1,202 @@
 import { useState } from "react";
 import useUserStore from "./../../store/userStore";
+import axios from "axios";
 
 const Admin = () => {
-  const { userName, email, role } = useUserStore();
-
+  const { role } = useUserStore();
   const [loading, setLoading] = useState(false);
-  const [analytics, setAnalytics] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState("");
 
-  // Dummy API simulation
-  const fetchUserAnalytics = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          totalUsers: 1284,
-          admins: 4,
-          activeUsers: 892,
-          newUsersToday: 27,
-          users: [
-            {
-              id: 1,
-              username: "kartik",
-              email: "kartik@gmail.com",
-              role: "ADMIN",
-              orders: 12
-            },
-            {
-              id: 2,
-              username: "rahul",
-              email: "rahul@gmail.com",
-              role: "USER",
-              orders: 3
-            },
-            {
-              id: 3,
-              username: "ananya",
-              email: "ananya@gmail.com",
-              role: "USER",
-              orders: 0
-            }
-          ]
-        });
-      }, 1000);
-    });
-  };
-
-  const handleGetAnalytics = async () => {
+  const fetchAllUsers = async () => {
     setLoading(true);
-    const data = await fetchUserAnalytics();
-    setAnalytics(data);
-    setLoading(false);
+    setError("");
+    try {
+      const response = await axios.get('http://localhost:3007/admin/users', {
+        withCredentials: true,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      
+      if (response.data.success) {
+        setUsers(response.data.users || response.data);
+      } else {
+        setError(response.data.message || "Failed to fetch users");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      setError(err.response?.data?.message || "Error connecting to server");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (role !== "ADMIN") {
     return (
       <div className="bg-black text-white h-screen flex items-center justify-center">
-        <h2 className="text-xl">🚫 Unauthorized – Admins only</h2>
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-2">Access Denied</h2>
+          <p className="text-gray-400">Admin access required</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-black text-white w-full min-h-screen p-10">
-
-      {/* Header */}
-      <div className="bg-slate-800 p-4 rounded-md w-fit mb-6">
-        <h3 className="text-lg font-semibold">Welcome, {userName}</h3>
-        <p className="text-sm text-gray-300">{email}</p>
-        <p className="text-sm text-gray-400">Role: {role}</p>
+    <div className="bg-black text-white min-h-screen p-4 md:p-8">
+      {/* Simple Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold">Admin Panel</h1>
+        <p className="text-gray-400">Manage users and view data</p>
       </div>
 
-      {/* Button */}
-      <button
-        onClick={handleGetAnalytics}
-        disabled={loading}
-        className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 px-4 py-2 rounded-md mb-8"
-      >
-        {loading ? "Fetching Analytics..." : "Get User Analytics"}
-      </button>
+      {/* Centered Button */}
+      {users.length === 0 && !loading && (
+        <div className="h-[60vh] flex flex-col items-center justify-center">
+          <div className="text-center max-w-md">
+            <div className="mb-6">
+              <div className="text-5xl mb-4">👥</div>
+              <h2 className="text-xl font-bold mb-2">User Management</h2>
+              <p className="text-gray-400">
+                Click the button below to load all user data including their orders and history.
+              </p>
+            </div>
 
-      {/* Analytics Cards */}
-      {analytics && (
-        <div className="grid grid-cols-4 gap-4 mb-10">
-          <div className="bg-slate-800 p-4 rounded-md">
-            <p className="text-sm text-gray-400">Total Users</p>
-            <p className="text-2xl font-bold">{analytics.totalUsers}</p>
-          </div>
-          <div className="bg-slate-800 p-4 rounded-md">
-            <p className="text-sm text-gray-400">Admins</p>
-            <p className="text-2xl font-bold">{analytics.admins}</p>
-          </div>
-          <div className="bg-slate-800 p-4 rounded-md">
-            <p className="text-sm text-gray-400">Active Users</p>
-            <p className="text-2xl font-bold">{analytics.activeUsers}</p>
-          </div>
-          <div className="bg-slate-800 p-4 rounded-md">
-            <p className="text-sm text-gray-400">New Today</p>
-            <p className="text-2xl font-bold">{analytics.newUsersToday}</p>
+            <button
+              onClick={fetchAllUsers}
+              disabled={loading}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? "Loading Users..." : "Load All Users"}
+            </button>
           </div>
         </div>
       )}
 
-      {/* User Table */}
-      {analytics && (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-slate-900 rounded-md">
-            <thead>
-              <tr className="border-b border-slate-700 text-left">
-                <th className="p-3">ID</th>
-                <th className="p-3">Username</th>
-                <th className="p-3">Email</th>
-                <th className="p-3">Role</th>
-                <th className="p-3">Orders</th>
-              </tr>
-            </thead>
-            <tbody>
-              {analytics.users.map((user) => (
-                <tr
-                  key={user.id}
-                  className="border-b border-slate-800 hover:bg-slate-800"
-                >
-                  <td className="p-3">{user.id}</td>
-                  <td className="p-3">{user.username}</td>
-                  <td className="p-3">{user.email}</td>
-                  <td className="p-3">{user.role}</td>
-                  <td className="p-3">{user.orders}</td>
+      {/* Error Message */}
+      {error && (
+        <div className="mb-4 p-4 bg-red-900/20 border border-red-800 rounded">
+          <p className="text-red-300">{error}</p>
+          <button
+            onClick={fetchAllUsers}
+            className="mt-2 text-sm bg-red-900/50 hover:bg-red-900 px-3 py-1 rounded"
+          >
+            Try Again
+          </button>
+        </div>
+      )}
+
+      {/* Loading State */}
+      {loading && (
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
+            <p>Loading user data...</p>
+          </div>
+        </div>
+      )}
+
+      {/* Users Table (Shows after button click) */}
+      {users.length > 0 && !loading && (
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-xl font-bold">
+                All Users ({users.length})
+              </h2>
+            </div>
+            <button
+              onClick={fetchAllUsers}
+              className="bg-gray-800 hover:bg-gray-700 px-3 py-2 rounded text-sm"
+            >
+              Refresh
+            </button>
+          </div>
+
+          <div className="overflow-x-auto bg-gray-900 rounded-lg">
+            <table className="min-w-full">
+              <thead>
+                <tr className="border-b border-gray-800">
+                  <th className="p-3 text-left">Username</th>
+                  <th className="p-3 text-left">Email</th>
+                  <th className="p-3 text-left">Role</th>
+                  <th className="p-3 text-left">Orders</th>
+                  <th className="p-3 text-left">Total Amount</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {users.map((user, index) => {
+                  const totalOrders = user.orders?.length || 0;
+                  const totalSpent = user.orders?.reduce((sum, order) => 
+                    sum + (order.totalAmount || 0), 0) || 0;
+
+                  return (
+                    <tr 
+                      key={index} 
+                      className="border-b border-gray-800 hover:bg-gray-800/50"
+                    >
+                      <td className="p-3">
+                        <div className="font-medium">{user.username}</div>
+                      </td>
+                      <td className="p-3">{user.email}</td>
+                      <td className="p-3">
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          user.role === "ADMIN" 
+                            ? "bg-purple-900 text-purple-200" 
+                            : "bg-blue-900 text-blue-200"
+                        }`}>
+                          {user.role}
+                        </span>
+                      </td>
+                      <td className="p-3">{totalOrders}</td>
+                      <td className="p-3">
+                        ${totalSpent.toLocaleString()}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Simple Order Details */}
+          <div className="mt-8">
+            <h3 className="text-lg font-bold mb-4">Recent Orders</h3>
+            <div className="space-y-3">
+              {users.slice(0, 5).map(user => 
+                user.orders?.slice(0, 2).map((order, idx) => (
+                  <div key={idx} className="p-3 bg-gray-900 rounded">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <span className="font-medium">{user.username}</span>
+                        <span className="text-gray-400 text-sm ml-2">
+                          Order #{order.id?.slice(0, 8)}...
+                        </span>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold">${order.totalAmount?.toLocaleString()}</div>
+                        <div className={`text-xs px-2 py-1 rounded ${
+                          order.status === "COMPLETED" 
+                            ? "bg-green-900 text-green-200" 
+                            : "bg-yellow-900 text-yellow-200"
+                        }`}>
+                          {order.status}
+                        </div>
+                      </div>
+                    </div>
+                    {order.orderItems && order.orderItems.length > 0 && (
+                      <div className="text-sm text-gray-400 mt-2">
+                        {order.orderItems.length} items
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
         </div>
       )}
-
     </div>
   );
 };
