@@ -44,12 +44,12 @@ const Login=()=>{
             console.log(user.email);
             alert('Login Successful!!!');    
             setLogin(true);
+           
             if(role=="ADMIN"){
                 navigate('/admin');  
 
-            }
-            if(role=="USER"){
-                navigate('/');  
+            }else{
+                navigate('/admin');  
 
             }
     
