@@ -1,49 +1,132 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useUserStore from "./../../store/userStore";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
-  const { role,setRole } = useUserStore();
+  const { role, userName, email, isAuthenticated } = useUserStore();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
+
+  // Check authentication on component mount
+  useEffect(() => {
+    console.log("Admin component - Current state:", {
+      role,
+      userName,
+      email,
+      isAuthenticated
+    });
+    
+    // If not authenticated, redirect to login
+    if (!isAuthenticated) {
+      console.log("Not authenticated, redirecting to login");
+      navigate('/login');
+    }
+    
+    // If authenticated but not admin, show access denied
+    if (isAuthenticated && role !== "ADMIN") {
+      console.log(`Authenticated as ${role}, but need ADMIN`);
+    }
+  }, [role, isAuthenticated, navigate]);
 
   const fetchAllUsers = async () => {
     setLoading(true);
     setError("");
     try {
+      console.log("Fetching users...");
       const response = await axios.get('http://localhost:3007/admin/users', {
         withCredentials: true
-       
       });
-      setRole(response.role);
+      
+      console.log("Response received:", response.data);
+      
       if (response.data.success) {
         setUsers(response.data.users || response.data);
       } else {
         setError(response.data.message || "Failed to fetch users");
       }
     } catch (err) {
-      console.error("Error:", err);
-      setError(err.response?.data?.message || "Error connecting to server");
+      console.error("Full error:", {
+        status: err.response?.status,
+        data: err.response?.data,
+        message: err.message
+      });
+      
+      if (err.response?.status === 403) {
+        setError("Access Denied: You need ADMIN privileges. Your role is: " + (role || 'undefined'));
+      } else if (err.response?.status === 401) {
+        setError("Session expired. Please login again.");
+        navigate('/login');
+      } else {
+        setError(err.response?.data?.message || "Error connecting to server");
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  if (role != "ADMIN") {
-    console.log("admin access error",role)
+  // Show loading while checking authentication
+  if (!isAuthenticated) {
     return (
       <div className="bg-black text-white h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">Access Denied</h2>
-          <p className="text-gray-400">Admin access required</p>
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
+          <p>Checking authentication...</p>
         </div>
       </div>
     );
   }
 
+  // Show access denied if not admin
+  if (role !== "ADMIN") {
+    console.log("Access denied - Role:", role, "Is authenticated:", isAuthenticated);
+    return (
+      <div className="bg-black text-white h-screen flex items-center justify-center">
+        <div className="text-center max-w-md p-6">
+          <div className="text-5xl mb-4">🚫</div>
+          <h2 className="text-2xl font-bold mb-2">Access Denied</h2>
+          <p className="text-gray-400 mb-4">Admin access required</p>
+          <div className="bg-gray-900 p-4 rounded mb-4">
+            <p className="text-sm">Current role: <span className={role ? "text-yellow-400" : "text-red-400"}>
+              {role || "undefined"}
+            </span></p>
+            <p className="text-sm">User: <span className="text-gray-300">{userName || "Unknown"}</span></p>
+            <p className="text-sm">Authenticated: <span className={isAuthenticated ? "text-green-400" : "text-red-400"}>
+              {isAuthenticated ? "Yes" : "No"}
+            </span></p>
+          </div>
+          <button 
+            onClick={() => navigate('/')}
+            className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded"
+          >
+            Go to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Admin UI
   return (
     <div className="bg-black text-white min-h-screen p-4 md:p-8">
+      {/* Debug info - remove in production */}
+      <div className="mb-4 p-3 bg-gray-900 rounded text-sm">
+        <p>✅ Logged in as: <span className="text-green-400">{userName}</span></p>
+        <p>✅ Role: <span className="text-purple-400">{role}</span></p>
+        <p>✅ Email: <span className="text-blue-400">{email}</span></p>
+        <button 
+          onClick={() => {
+            console.log("Full store state:", useUserStore.getState());
+            fetchAllUsers();
+          }}
+          className="mt-1 text-xs bg-gray-800 px-2 py-1 rounded"
+        >
+          Debug Store & Fetch Users
+        </button>
+      </div>
+
       {/* Simple Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Admin Panel</h1>
@@ -51,7 +134,7 @@ const Admin = () => {
       </div>
 
       {/* Centered Button */}
-      {users.length === 0 && !loading && (
+      {users.length === 0 && !loading && !error && (
         <div className="h-[60vh] flex flex-col items-center justify-center">
           <div className="text-center max-w-md">
             <div className="mb-6">
@@ -76,7 +159,7 @@ const Admin = () => {
       {/* Error Message */}
       {error && (
         <div className="mb-4 p-4 bg-red-900/20 border border-red-800 rounded">
-          <p className="text-red-300">{error}</p>
+          <p className="text-red-300 font-medium">{error}</p>
           <button
             onClick={fetchAllUsers}
             className="mt-2 text-sm bg-red-900/50 hover:bg-red-900 px-3 py-1 rounded"
@@ -96,8 +179,8 @@ const Admin = () => {
         </div>
       )}
 
-      {/* Users Table (Shows after button click) */}
-      {users.length > 0 && !loading && (
+      {/* Users Table */}
+      {users.length > 0 && !loading && !error && (
         <div>
           <div className="flex items-center justify-between mb-4">
             <div>
@@ -157,42 +240,6 @@ const Admin = () => {
                 })}
               </tbody>
             </table>
-          </div>
-
-          {/* Simple Order Details */}
-          <div className="mt-8">
-            <h3 className="text-lg font-bold mb-4">Recent Orders</h3>
-            <div className="space-y-3">
-              {users.slice(0, 5).map(user => 
-                user.orders?.slice(0, 2).map((order, idx) => (
-                  <div key={idx} className="p-3 bg-gray-900 rounded">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <span className="font-medium">{user.username}</span>
-                        <span className="text-gray-400 text-sm ml-2">
-                          Order #{order.id?.slice(0, 8)}...
-                        </span>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold">${order.totalAmount?.toLocaleString()}</div>
-                        <div className={`text-xs px-2 py-1 rounded ${
-                          order.status === "COMPLETED" 
-                            ? "bg-green-900 text-green-200" 
-                            : "bg-yellow-900 text-yellow-200"
-                        }`}>
-                          {order.status}
-                        </div>
-                      </div>
-                    </div>
-                    {order.orderItems && order.orderItems.length > 0 && (
-                      <div className="text-sm text-gray-400 mt-2">
-                        {order.orderItems.length} items
-                      </div>
-                    )}
-                  </div>
-                ))
-              )}
-            </div>
           </div>
         </div>
       )}

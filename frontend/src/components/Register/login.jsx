@@ -37,12 +37,14 @@ const Login=()=>{
             const { user } = response.data;
     
             // Update global state with data returned from backend
-            setRole(user.role);
-            setuserName(user.username);
-            setEmail(user.email);
+            useUserStore.getState().login({
+                username: user.username,
+                email: user.email,
+                role: user.role
+            });
             console.log(user.username);
             console.log(user.email);
-            console.log(user.role);
+            console.log(role);
             alert('Login Successful!!!');    
             setLogin(true);
            
