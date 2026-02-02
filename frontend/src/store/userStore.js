@@ -4,7 +4,7 @@ const useUserStore = create((set) => ({
   userName: "",
   email: "",
   cart: [],
-  role:"USER",
+  role:"",
 
   setuserName: (name) => set({ userName: name }),
   setEmail: (email) => set({ email: email }),

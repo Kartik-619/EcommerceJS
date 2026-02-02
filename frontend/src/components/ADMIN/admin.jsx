@@ -3,7 +3,7 @@ import useUserStore from "./../../store/userStore";
 import axios from "axios";
 
 const Admin = () => {
-  const { role } = useUserStore();
+  const { role,setRole } = useUserStore();
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
@@ -12,13 +12,15 @@ const Admin = () => {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.get('http://localhost:3007/admin/users', {
+      const response = await axios.get('http://localhost:3007/admin/users',{
+        role
+      }, {
         withCredentials: true,
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       });
-      
+      setRole(response.role);
       if (response.data.success) {
         setUsers(response.data.users || response.data);
       } else {
@@ -32,7 +34,7 @@ const Admin = () => {
     }
   };
 
-  if (role !== "ADMIN") {
+  if (role != "ADMIN") {
     return (
       <div className="bg-black text-white h-screen flex items-center justify-center">
         <div className="text-center">

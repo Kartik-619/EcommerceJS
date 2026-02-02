@@ -31,7 +31,7 @@ const Login=()=>{
                 username: inputUserName, 
                 email: inputEmail,
                 password: password,
-                role
+         
             }, { withCredentials: true });  
             
             const { user } = response.data;
@@ -42,6 +42,7 @@ const Login=()=>{
             setEmail(user.email);
             console.log(user.username);
             console.log(user.email);
+            console.log(user.role);
             alert('Login Successful!!!');    
             setLogin(true);
            

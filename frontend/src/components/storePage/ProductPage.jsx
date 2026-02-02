@@ -12,7 +12,9 @@ const ProductPage = () => {
   useEffect(() => {
     const FetchSingle = async () => {
       try {
-        const response = await axios.get(`http://localhost:3007/api/products/${id}`);
+        const response = await axios.get(`http://localhost:3007/api/products/${id}`,{
+          withCredentials:true
+        });
         setProducts(response.data);
         console.log(response.data)
       } catch (err) {
