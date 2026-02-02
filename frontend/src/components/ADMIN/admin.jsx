@@ -12,13 +12,9 @@ const Admin = () => {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.get('http://localhost:3007/admin/users',{
-        role
-      }, {
-        withCredentials: true,
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
+      const response = await axios.get('http://localhost:3007/admin/users', {
+        withCredentials: true
+       
       });
       setRole(response.role);
       if (response.data.success) {
@@ -35,6 +31,7 @@ const Admin = () => {
   };
 
   if (role != "ADMIN") {
+    console.log("admin access error",role)
     return (
       <div className="bg-black text-white h-screen flex items-center justify-center">
         <div className="text-center">
